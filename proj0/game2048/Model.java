@@ -106,11 +106,243 @@ public class Model extends Observable {
      *    value, then the leading two tiles in the direction of motion merge,
      *    and the trailing tile does not.
      * */
+
+    public boolean ApplyToOneCol(int c){
+        int ScoreForOne = 0;
+        int s = ScoreForOne;
+        Tile r3 = this.board.tile(c, 3);
+        Tile r2 = this.board.tile(c,2);
+        Tile r1 = this.board.tile(c, 1);
+        Tile r0 = this.board.tile(c,0);
+
+        // this.board.tile(c,row).value()
+
+        if (r3==null){
+            if (r2 ==null){
+                if (r1 == null){
+                    if (r0 == null){
+                        return false;
+                    }else{
+                        board.move(c,3,r0);
+                        return true;
+                    }
+                }else{
+                    if (r0 == null){
+                        board.move(c,3,r1);
+                        return true;
+
+                    }else{
+                        board.move(c, 3, r1);
+                        if (r0.value() == board.tile(c, 3).value()) {
+                            board.move(c, 3, r0);
+                            s = board.tile(c, 3).value();
+                            this.score = this.score + s;
+                        }else{
+                            board.move(c,2,r0);
+                        }
+                        return true;
+                    }
+                }
+            }else{
+                if (r1 == null){
+                    if (r0 == null){
+                        board.move(c,3,r2);
+                        return true;
+                    }else{
+                        board.move(c,3,r2);
+                        if (r0.value()==board.tile(c,3).value()){
+                            board.move(c,3,r0);
+                            this.score += board.tile(c,3).value();
+                            return true;
+                        }else{
+                            board.move(c,2,r0);
+                            return true;
+                        }
+                    }
+                }else{
+                    if(r0 == null){
+                        board.move(c,3,r2);
+                        if (r1.value()== board.tile(c,3).value()){
+                            board.move(c,3,r1);
+                            this.score+=board.tile(c,3).value();
+                            return true;
+                        }else{
+                            board.move(c,2,r1);
+                            return true;
+                        }
+                    }else{
+                        board.move(c,3,r2);
+                        if(r1.value()==board.tile(c,3).value()){
+                            board.move(c,3,r1);
+                            this.score+=board.tile(c,3).value();
+                            board.move(c,2,r0);
+                            return true;
+                        }else{
+                            board.move(c,2,r1);
+                            if (r0.value()==board.tile(c,2).value()){
+                                board.move(c,2,r0);
+                                this.score+=board.tile(c,2).value();
+                                return true;
+                            }else{
+                                board.move(c,1,r0);
+                                return true;
+                            }
+                        }
+                    }
+                }
+            }
+        }else{
+            if (r2 == null){
+                if(r1==null){
+                    if(r0 == null){
+                        return false;
+                    }else{
+                        if(r0.value() == r3.value()){
+                            board.move(c,3,r0);
+                            this.score+=board.tile(c,3).value();
+                            return true;
+                        }else{
+                            board.move(c,2,r0);
+                            return true;
+                        }
+                    }
+                }else{
+                    if(r0==null){
+                        if (r1.value()==r3.value()){
+                            board.move(c,3,r1);
+                            this.score+=board.tile(c,3).value();
+                            return true;
+                        }else{
+                            board.move(c,2,r1);
+                            return true;
+                        }
+                    }else{
+                        if(r1.value()==r3.value()){
+                            board.move(c,3,r1);
+                            this.score+=board.tile(c,3).value();
+                            board.move(c,2,r0);
+                            return true;
+                        }else{
+                            board.move(c,2,r1);
+                            if (r0.value() == board.tile(c,2).value()){
+                                board.move(c,2,r0);
+                                this.score+=board.tile(c,2).value();
+                                return true;
+                            }else{
+                                board.move(c,1,r0);
+                                return true;
+                            }
+                        }
+                    }
+                }
+            }else{
+                if (r1 == null){
+                    if (r0 == null){
+                        if (r2.value()==r3.value()) {
+                            board.move(c, 3, r2);
+                            this.score+=board.tile(c,3).value();
+                            return true;
+                        }else{
+                            return false;
+                        }
+                    }else{
+                        if (r2.value()==r3.value()){
+                            board.move(c,3,r2);
+                            this.score+=board.tile(c,3).value();
+                            board.move(c,2,r0);
+                            return true;
+                        }else{
+                            if (r0.value()==r2.value()){
+                                board.move(c,2,r0);
+                                this.score+=board.tile(c,2).value();
+                                return true;
+                            }else{
+                                board.move(c,1,r0);
+                                return true;
+                            }
+                        }
+                    }
+                }else{
+                    if (r0 ==null){
+                        if(r2.value()==r3.value()){
+                            board.move(c,3,r2);
+                            this.score+=board.tile(c,3).value();
+                            board.move(c,2,r1);
+                            return true;
+                        }else{
+                            if(r1.value()==r2.value()){
+                                board.move(c,2,r1);
+                                this.score+=board.tile(c,2).value();
+                                return true;
+                            }else{
+                                return false;
+                            }
+                        }
+                    }else{
+                        if(r2.value()==r3.value()){
+                            board.move(c,3,r2);
+                            this.score+=board.tile(c,3).value();
+                            board.move(c,2,r1);
+                            if(r0.value()==board.tile(c,2).value()){
+                                board.move(c,2,r0);
+                                this.score+=board.tile(c,2).value();
+                                return true;
+                            }else{
+                                board.move(c,1,r0);
+                                return true;
+                            }
+                        }else{
+                            if(r1.value()==r2.value()){
+                                board.move(c,2,r1);
+                                this.score+=board.tile(c,2).value();
+                                board.move(c,1,r0);
+                                return true;
+                            }else{
+                                if(r1.value()==r2.value()){
+                                    board.move(c,2,r1);
+                                    this.score+=board.tile(c,2).value();
+                                    board.move(c,1,r0);
+                                    return true;
+                                }else{
+                                    if(r0.value()==r1.value()){
+                                        board.move(c,1,r0);
+                                        this.score+=board.tile(c,1).value();
+                                        return true;
+                                    }else{
+                                        return false;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+    }
+    }
+
     public boolean tilt(Side side) {
+        if (!side.equals(Side.NORTH)){
+            board.setViewingPerspective(side);
+            boolean midvalue = tilt(Side.NORTH);
+            board.setViewingPerspective(Side.NORTH);
+            return midvalue;
+            }else{
+
+
         boolean changed;
         changed = false;
 
         // TODO: Modify this.board (and perhaps this.score) to account
+
+        // this is fpr uponly (current stage) user write
+        for(int row=0; row < 4; row++){
+            boolean a = ApplyToOneCol(row);
+            if (a) {
+                changed = true;
+            }
+        }
+
         // for the tilt to the Side SIDE. If the board changed, set the
         // changed local variable to true.
 
@@ -118,8 +350,10 @@ public class Model extends Observable {
         if (changed) {
             setChanged();
         }
-        return changed;
+        return changed;}
     }
+
+
 
     /** Checks if the game is over and sets the gameOver variable
      *  appropriately.
@@ -137,7 +371,14 @@ public class Model extends Observable {
      *  Empty spaces are stored as null.
      * */
     public static boolean emptySpaceExists(Board b) {
-        // TODO: Fill in this function.
+        for (int firstValue = 0; firstValue < 4 ; firstValue++ ) {
+            for (int secondValue = 0 ; secondValue < 4 ; secondValue ++){
+                if (b.tile(firstValue, secondValue) == null) {
+                    return true;
+                }
+
+            }
+        }
         return false;
     }
 
@@ -147,7 +388,17 @@ public class Model extends Observable {
      * given a Tile object t, we get its value with t.value().
      */
     public static boolean maxTileExists(Board b) {
-        // TODO: Fill in this function.
+        for (int firstValue = 0; firstValue < 4 ; firstValue++ ) {
+            for (int secondValue = 0 ; secondValue < 4 ; secondValue ++){
+                if (b.tile(firstValue, secondValue) == null){
+                    continue;
+                }else{
+                    if (b.tile(firstValue, secondValue).value() == MAX_PIECE) {
+                        return true;
+                    }
+                }
+            }
+        }
         return false;
     }
 
@@ -158,7 +409,25 @@ public class Model extends Observable {
      * 2. There are two adjacent tiles with the same value.
      */
     public static boolean atLeastOneMoveExists(Board b) {
-        // TODO: Fill in this function.
+        if (emptySpaceExists(b)){
+            return true;
+        }
+        for (int firstValue = 0; firstValue < 3 ; firstValue++ ) {
+            for (int secondValue = 0 ; secondValue < 4 ; secondValue ++){
+                if (b.tile(firstValue, secondValue).value() == b.tile(firstValue+1, secondValue).value()) {
+                    return true;
+                    }
+
+                }
+            }
+        for (int firstValue = 0; firstValue < 4 ; firstValue++ ) {
+            for (int secondValue = 0 ; secondValue < 3 ; secondValue ++){
+                if (b.tile(firstValue, secondValue).value() == b.tile(firstValue, secondValue+1).value()) {
+                    return true;
+                }
+
+            }
+        }
         return false;
     }
 

@@ -7,11 +7,12 @@ public class ArrayDeque<Item> implements Deque<Item> {
     private Item[] items;
     private int size;
     private int nextFirst = 0;
-    private int nextLast = items.length - 1;
+    private int nextLast;
 
     public ArrayDeque(){
         items = (Item[]) new Object[8];
         size = 0;
+        nextLast = items.length - 1;
     }
 
     private void resize(int capacity){

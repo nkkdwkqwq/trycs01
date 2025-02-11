@@ -30,6 +30,7 @@ public class ArrayDeque<Item> implements Deque<Item> {
         items = a;
     }
 
+    @Override
     public void addFirst(Item t){
         if(size == items.length){
             resize(2*size);
@@ -39,6 +40,7 @@ public class ArrayDeque<Item> implements Deque<Item> {
         nextFirst++;
     }
 
+    @Override
     public void addLast(Item t){
         if(size == items.length){
             resize(2*size);
@@ -48,14 +50,13 @@ public class ArrayDeque<Item> implements Deque<Item> {
         nextLast--;
     }
 
-    public boolean isEmpty(){
-        return size == 0;
-    }
 
+    @Override
     public int size(){
         return size;
     }
 
+    @Override
     public void printDeque(){
         int firstnum = nextFirst -1;
         int wholelastlength = items.length;
@@ -69,6 +70,7 @@ public class ArrayDeque<Item> implements Deque<Item> {
         }
     }
 
+    @Override
     public Item removeFirst(){
         if(items.length>=16 && 4*size<=items.length ){
             resize(items.length/2);
@@ -82,11 +84,12 @@ public class ArrayDeque<Item> implements Deque<Item> {
         return items[nextFirst];
     }
 
+    @Override
     public Item removeLast(){
         if(items.length>=16 && 4*size<=items.length ){
             resize(items.length/2);
         }
-        if(nextLast == items.length){
+        if(nextLast >= items.length-1){
             return null;
         }
 
@@ -95,6 +98,7 @@ public class ArrayDeque<Item> implements Deque<Item> {
         return items[nextLast];
     }
 
+    @Override
     public Item get (int index){
         if(index >= nextFirst -1 + items.length - nextLast|| index < 0){
             return null;

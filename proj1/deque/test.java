@@ -6,10 +6,14 @@ import static org.junit.Assert.*;
 public class test {
     @Test
     public void addtest(){
-        ArrayDeque<Integer> test1 = new ArrayDeque<>();
+        MaxArrayDeque<Integer> test1 = new MaxArrayDeque<>(Integer::compareTo);
         test1.addFirst(1);
         test1.addFirst(2);
-        test1.addFirst(3);
-        assertEquals(3,test1.size());
+        test1.addFirst(7);
+        test1.addFirst(98);
+        test1.addFirst(2);
+        int mid = test1.max();
+        assertEquals(98,mid);
+
     }
 }

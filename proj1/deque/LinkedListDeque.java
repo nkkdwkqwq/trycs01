@@ -1,9 +1,14 @@
 package deque;
 
+/*
 import jh61b.junit.In;
 import net.sf.saxon.expr.instruct.Block;
+*/
 
-public class LinkedListDeque<T> {
+
+import java.util.Iterator;
+
+public class LinkedListDeque<T> implements Deque<T> {
     public class Node {
         public T item;
         public Node next;
@@ -93,32 +98,66 @@ public class LinkedListDeque<T> {
         return mid;
     }
 
-    public T get(int index){
-        if (index>=size || index < 0){
+    public T get(int index) {
+        if (index >= size || index < 0) {
             return null;
         }
         Node mid = sentinel.next;
-        while (index!=0){
+        while (index != 0) {
             index--;
             mid = mid.next;
         }
         return mid.item;
     }
 
-    // not finished
-    public boolean equals(Object o){
-        if(o instanceof LinkedListDeque){
-            if(((LinkedListDeque<?>) o).size() == this.size()){
-                int mid = 0;
-                while(mid <=  size-1){
-                    if(((LinkedListDeque<?>) o).get(mid)!=this.get(mid)){
-                        return false;
-                    }
-                    mid++;
-                }
+    public Iterator<T> iterator(){
+        return new DequeIterator();
+    }
+
+    private class DequeIterator implements Iterator<T>{
+        private int nextItem;
+
+        public DequeIterator(){
+            nextItem = 0;
+        }
+        public boolean hasNext(){
+            if (nextItem < size){
                 return true;
             }
+            return false;
         }
-        return false;
+
+
+        public T next() {
+            T returnItem = get(nextItem);
+            nextItem++;
+            return returnItem;
+        }
+    }
+
+    @Override
+    public boolean equals(Object o) {
+
+        if (o == this) {
+            return true;
+        }
+        if (o == null) {
+            return false;
+        }
+        if (o.getClass() != this.getClass()) {
+            return false;
+        }
+        LinkedListDeque<T> o1 = (LinkedListDeque<T>) o;
+        if (o1.size() != this.size()) {
+            return false;
+        }
+        int mid = 0;
+        while (mid <= size - 1) {
+            if (o1.get(mid) != this.get(mid)) {
+                return false;
+            }
+            mid++;
+        }
+        return true;
     }
 }

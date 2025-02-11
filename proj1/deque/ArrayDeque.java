@@ -1,6 +1,8 @@
 package deque;
 
-public class ArrayDeque<Item> {
+import java.util.Iterator;
+
+public class ArrayDeque<Item> implements Deque<Item> {
 
     private Item[] items;
     private int size;
@@ -105,21 +107,58 @@ public class ArrayDeque<Item> {
 
 
     }
+    public Iterator<Item> iterator(){
+        return new DequeIterator();
+    }
 
-    public boolean equals(Object o){
-        if(o instanceof ArrayDeque){
-            if(((ArrayDeque<?>) o).size() == this.size()){
-                int mid = 0;
-                while(mid <=  size-1){
-                    if(((ArrayDeque<?>) o).get(mid)!=this.get(mid)){
-                        return false;
-                    }
-                    mid++;
-                }
+    private class DequeIterator implements Iterator<Item>{
+        private int nextItem;
+
+        public DequeIterator(){
+            nextItem = 0;
+        }
+        public boolean hasNext(){
+            if (nextItem < size){
                 return true;
             }
+            return false;
         }
-        return false;
+
+
+        public Item next() {
+            Item returnItem = get(nextItem);
+            nextItem++;
+            return returnItem;
+        }
     }
+
+    @Override
+    public boolean equals(Object o){
+
+        if(o == this){
+            return true;
+        }
+        if(o == null){
+            return false;
+        }
+        if(o.getClass()!=this.getClass()){
+            return false;
+        }
+        ArrayDeque<Item> o1 = (ArrayDeque<Item>) o;
+        if (o1.size()!=this.size()){
+            return false;
+        }
+        int mid = 0;
+        while(mid <=  size-1){
+            if(o1.get(mid)!=this.get(mid)){
+                return false;
+            }
+            mid++;
+        }
+        return true;
+
+    }
+
+
 
 }

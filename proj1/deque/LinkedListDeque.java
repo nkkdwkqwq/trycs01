@@ -119,14 +119,14 @@ public class LinkedListDeque<T> implements Deque<T> {
         return new DequeIterator();
     }
 
-    private class DequeIterator implements Iterator<T>{
+    private class DequeIterator implements Iterator<T> {
         private int nextItem;
 
-        public DequeIterator(){
+        public DequeIterator() {
             nextItem = 0;
         }
-        public boolean hasNext(){
-            if (nextItem < size){
+        public boolean hasNext() {
+            if (nextItem < size) {
                 return true;
             }
             return false;

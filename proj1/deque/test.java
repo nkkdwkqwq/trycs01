@@ -13,7 +13,7 @@ public class test {
         test1.addFirst(98);
         test1.addFirst(2);
         int mid = test1.max();
-        assertEquals(98,mid);
+        assertEquals(98, mid);
 
     }
 }

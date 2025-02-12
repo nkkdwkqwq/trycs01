@@ -140,13 +140,13 @@ public class ArrayDeque<Item> implements Deque<Item> {
     @Override
     public boolean equals(Object o) {
 
-        if(o == this) {
+        if (o == this) {
             return true;
         }
-        if(o == null) {
+        if (o == null) {
             return false;
         }
-        if(o.getClass() != this.getClass()) {
+        if (o.getClass() != this.getClass()) {
             return false;
         }
         ArrayDeque<Item> o1 = (ArrayDeque<Item>) o;
@@ -154,8 +154,8 @@ public class ArrayDeque<Item> implements Deque<Item> {
             return false;
         }
         int mid = 0;
-        while(mid <=  size - 1){
-            if(o1.get(mid) != this.get(mid)) {
+        while (mid <=  size - 1) {
+            if (o1.get(mid) != this.get(mid)) {
                 return false;
             }
             mid++;

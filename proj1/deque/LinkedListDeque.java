@@ -1,27 +1,20 @@
 package deque;
 
-/*
-import jh61b.junit.In;
-import net.sf.saxon.expr.instruct.Block;
-*/
-
-
 import java.util.Iterator;
 
 public class LinkedListDeque<T> implements Deque<T> {
     public class Node {
-        public T item;
-        public Node next;
-        public Node first;
+        private T item;
+        private Node next;
+        private Node first;
 
-        public Node(Node c, T i, Node n) {
+        private Node(Node c, T i, Node n) {
             item = i;
             next = n;
             first = c;
-        }
+            }
+
     }
-
-
     private Node sentinel;
     private int size = 0;
 
@@ -38,6 +31,20 @@ public class LinkedListDeque<T> implements Deque<T> {
         sentinel.first = sentinel;
         sentinel.next = sentinel;
         size = 0;
+    }
+
+    private T getRecursiveHelpFunc(int index,Node t){
+        if (index >= size || index < 0) {
+            return null;
+        }
+        if (index == 0){
+            return t.item;
+        }
+        return getRecursiveHelpFunc(index--,t.next);
+    }
+    public T getRecursive(int index){
+        Node c = sentinel;
+        return getRecursiveHelpFunc(index,c.next);
     }
 
     @Override
@@ -63,7 +70,7 @@ public class LinkedListDeque<T> implements Deque<T> {
     @Override
     public int size() {
         return size;
-    }
+}
 
     @Override
     public void printDeque() {
@@ -115,16 +122,16 @@ public class LinkedListDeque<T> implements Deque<T> {
         return mid.item;
     }
 
-    public Iterator<T> iterator(){
-        return new DequeIterator();
-    }
+    public Iterator<T> iterator() {
+    return new DequeIterator();
+}
 
     private class DequeIterator implements Iterator<T> {
         private int nextItem;
 
-        public DequeIterator() {
-            nextItem = 0;
-        }
+        private DequeIterator() {
+        nextItem = 0;
+    }
         public boolean hasNext() {
             if (nextItem < size) {
                 return true;

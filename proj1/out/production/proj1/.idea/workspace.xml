@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="4b4d61e4-f13a-4407-a2d6-06a20f379096" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/deque/ArrayDeque.java" beforeDir="false" afterPath="$PROJECT_DIR$/deque/ArrayDeque.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/deque/Deque.java" beforeDir="false" afterPath="$PROJECT_DIR$/deque/Deque.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/deque/LinkedListDeque.java" beforeDir="false" afterPath="$PROJECT_DIR$/deque/LinkedListDeque.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/deque/MaxArrayDeque.java" beforeDir="false" afterPath="$PROJECT_DIR$/deque/MaxArrayDeque.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/deque/test.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/deque/ArrayDeque.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/deque/LinkedListDeque$Node.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/deque/LinkedListDeque.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/deque/LinkedListDequeTest.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/gh2/GuitarHeroLite.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/gh2/GuitarPlayer.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/gh2/GuitarString.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/gh2/TTFAF.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/gh2/TestGuitarString.class" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="localRepository" value="C:\Users\lkh\Desktop\cs61b\trycs01\library-sp21\javalib" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "customColor": "",
+  "associatedIndex": 2
+}]]></component>
+  <component name="ProjectId" id="2sv6l0aCwYBXL9lM1kAoEtv2V3Q" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "JUnit.LinkedListDequeTest.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "main",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/lkh/Desktop/cs61b/trycs01/library-sp21/javalib",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "MavenSettings"
+  }
+}]]></component>
+  <component name="RunManager">
+    <configuration name="LinkedListDequeTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="proj1" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="deque.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="deque" />
+      <option name="MAIN_CLASS_NAME" value="deque.LinkedListDequeTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.LinkedListDequeTest" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="4b4d61e4-f13a-4407-a2d6-06a20f379096" name="Changes" comment="" />
+      <created>1739323849985</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1739323849985</updated>
+    </task>
+    <servers />
+  </component>
+</project>

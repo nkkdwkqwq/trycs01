@@ -2,8 +2,8 @@ package deque;
 
 import java.util.Iterator;
 
-public class LinkedListDeque<T> implements Deque<T> {
-    public class Node {
+public class LinkedListDeque<T> implements Deque<T>, Iterable<T> {
+    private class Node {
         private T item;
         private Node next;
         private Node first;
@@ -12,18 +12,11 @@ public class LinkedListDeque<T> implements Deque<T> {
             item = i;
             next = n;
             first = c;
-            }
+        }
 
     }
     private Node sentinel;
     private int size = 0;
-
-    public LinkedListDeque(T x) {
-        sentinel = new Node(sentinel, null, sentinel);
-        sentinel.next = new Node(sentinel, x, sentinel.next);
-        sentinel.first = sentinel.next;
-        size = 1;
-    }
 
 
     public LinkedListDeque() {
@@ -33,18 +26,18 @@ public class LinkedListDeque<T> implements Deque<T> {
         size = 0;
     }
 
-    private T getRecursiveHelpFunc(int index,Node t){
+    private T getRecursiveHelpFunc(int index, Node t) {
         if (index >= size || index < 0) {
             return null;
         }
-        if (index == 0){
+        if (index == 0) {
             return t.item;
         }
-        return getRecursiveHelpFunc(index--,t.next);
+        return getRecursiveHelpFunc(index = index - 1, t.next);
     }
-    public T getRecursive(int index){
+    public T getRecursive(int index) {
         Node c = sentinel;
-        return getRecursiveHelpFunc(index,c.next);
+        return getRecursiveHelpFunc(index, c.next);
     }
 
     @Override
@@ -70,7 +63,7 @@ public class LinkedListDeque<T> implements Deque<T> {
     @Override
     public int size() {
         return size;
-}
+    }
 
     @Override
     public void printDeque() {
@@ -123,15 +116,15 @@ public class LinkedListDeque<T> implements Deque<T> {
     }
 
     public Iterator<T> iterator() {
-    return new DequeIterator();
-}
+        return new DequeIterator();
+    }
 
     private class DequeIterator implements Iterator<T> {
         private int nextItem;
 
         private DequeIterator() {
-        nextItem = 0;
-    }
+            nextItem = 0;
+        }
         public boolean hasNext() {
             if (nextItem < size) {
                 return true;

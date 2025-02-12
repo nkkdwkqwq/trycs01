@@ -3,19 +3,19 @@ package deque;
 import java.util.Comparator;
 import java.util.Iterator;
 
-public class MaxArrayDeque<Item> extends ArrayDeque<Item> {
-    private Comparator<Item> pri;
-    public MaxArrayDeque(Comparator<Item> c) {
+public class MaxArrayDeque<T> extends ArrayDeque<T> {
+    private Comparator<T> pri;
+    public MaxArrayDeque(Comparator<T> c) {
         pri = c;
     }
 
-    public Item max() {
-        Item maxitem;
-        Iterator<Item> item1 = iterator();
+    public T max() {
+        T maxitem;
+        Iterator<T> item1 = iterator();
         if (item1.hasNext()) {
             maxitem = item1.next();
             while (item1.hasNext()) {
-                Item mid01 = item1.next();
+                T mid01 = item1.next();
                 if (pri.compare(maxitem, mid01) < 0) {
                     maxitem = mid01;
                 }
@@ -26,13 +26,13 @@ public class MaxArrayDeque<Item> extends ArrayDeque<Item> {
         }
     }
 
-    public Item max(Comparator<Item> c) {
-        Item maxitem;
-        Iterator<Item> item1 = iterator();
+    public T max(Comparator<T> c) {
+        T maxitem;
+        Iterator<T> item1 = iterator();
         if (item1.hasNext()) {
             maxitem = item1.next();
             while (item1.hasNext()) {
-                Item mid01 = item1.next();
+                T mid01 = item1.next();
                 if (c.compare(maxitem, mid01) < 0) {
                     maxitem = mid01;
                 }
@@ -55,7 +55,7 @@ public class MaxArrayDeque<Item> extends ArrayDeque<Item> {
         if (o.getClass() != this.getClass()) {
             return false;
         }
-        MaxArrayDeque<Item> o1 = (MaxArrayDeque<Item>) o;
+        MaxArrayDeque<T> o1 = (MaxArrayDeque<T>) o;
         if (o1.size() != this.size()) {
             return false;
         }

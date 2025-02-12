@@ -6,6 +6,34 @@ import static org.junit.Assert.*;
 public class LinkedListDequeTest {
 
     @Test
+    public void equalTest() {
+        LinkedListDeque<Integer> lld1 = new LinkedListDeque<>();
+        lld1.addFirst(4);
+        lld1.addFirst(5);
+        lld1.addFirst(6);
+
+        LinkedListDeque<Integer> lld2 = new LinkedListDeque<>();
+        lld2.addFirst(4);
+        lld2.addFirst(5);
+        lld2.addFirst(6);
+        boolean c = lld1.equals(lld2);
+        assertEquals(true,c);
+
+    }
+
+    @Test
+    public void getRecursiveTest() {
+        LinkedListDeque<Integer> lld1 = new LinkedListDeque<>();
+        lld1.addFirst(4);
+        lld1.addFirst(5);
+        lld1.addFirst(6);
+        int c = lld1.getRecursive(1);
+        assertEquals(5,c);
+
+    }
+
+
+    @Test
     /** Adds a few things to the list, checking isEmpty() and size() are correct,
      * finally printing the results.
      *

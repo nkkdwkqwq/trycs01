@@ -2,21 +2,21 @@ package deque;
 
 import java.util.Iterator;
 
-public class ArrayDeque<Item> implements Deque<Item> {
+public class ArrayDeque<T> implements Deque<T>, Iterable<T>  {
 
-    private Item[] items;
+    private T[] items;
     private int size;
     private int nextFirst = 0;
     private int nextLast;
 
     public ArrayDeque() {
-        items = (Item[]) new Object[8];
+        items = (T[]) new Object[8];
         size = 0;
         nextLast = items.length - 1;
     }
 
     private void resize(int capacity) {
-        Item[] a = (Item[]) new Object[capacity];
+        T[] a = (T[]) new Object[capacity];
         int firstnum = nextFirst - 1;
         int wholelastlength = items.length;
         while (firstnum > 0) {
@@ -28,10 +28,11 @@ public class ArrayDeque<Item> implements Deque<Item> {
             wholelastlength--;
         }
         items = a;
+        nextLast = items.length - size + nextFirst - 1;
     }
 
     @Override
-    public void addFirst(Item t) {
+    public void addFirst(T t) {
         if (size == items.length) {
             resize(2 * size);
         }
@@ -41,7 +42,7 @@ public class ArrayDeque<Item> implements Deque<Item> {
     }
 
     @Override
-    public void addLast(Item t) {
+    public void addLast(T t) {
         if (size == items.length) {
             resize(2 * size);
         }
@@ -71,7 +72,7 @@ public class ArrayDeque<Item> implements Deque<Item> {
     }
 
     @Override
-    public Item removeFirst() {
+    public T removeFirst() {
         if (items.length >= 16 && 4 * size <= items.length) {
             resize(items.length / 2);
         }
@@ -85,7 +86,7 @@ public class ArrayDeque<Item> implements Deque<Item> {
     }
 
     @Override
-    public Item removeLast() {
+    public T removeLast() {
         if (items.length >= 16 && 4 * size <= items.length) {
             resize(items.length / 2);
         }
@@ -99,7 +100,7 @@ public class ArrayDeque<Item> implements Deque<Item> {
     }
 
     @Override
-    public Item get(int index) {
+    public T get(int index) {
         if (index >= nextFirst - 1 + items.length - nextLast || index < 0) {
             return null;
         }
@@ -112,11 +113,11 @@ public class ArrayDeque<Item> implements Deque<Item> {
 
 
     }
-    public Iterator<Item> iterator() {
+    public Iterator<T> iterator() {
         return new DequeIterator();
     }
 
-    private class DequeIterator implements Iterator<Item> {
+    private class DequeIterator implements Iterator<T> {
         private int nextItem;
 
         private DequeIterator() {
@@ -130,8 +131,8 @@ public class ArrayDeque<Item> implements Deque<Item> {
         }
 
 
-        public Item next() {
-            Item returnItem = get(nextItem);
+        public T next() {
+            T returnItem = get(nextItem);
             nextItem++;
             return returnItem;
         }
@@ -149,7 +150,7 @@ public class ArrayDeque<Item> implements Deque<Item> {
         if (o.getClass() != this.getClass()) {
             return false;
         }
-        ArrayDeque<Item> o1 = (ArrayDeque<Item>) o;
+        ArrayDeque<T> o1 = (ArrayDeque<T>) o;
         if (o1.size() != this.size()) {
             return false;
         }

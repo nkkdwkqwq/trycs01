@@ -53,16 +53,18 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T>  {
             items = a;
             nextFirst = firstItem + 1;
             nextLast = items.length - size + nextFirst - 1;
-        } else  {
+        } else {
+            int aHelp = a.length - 1;
             int firstnum = firstItem;
             int lastnum = lastItem;
             while (firstnum >= lastnum) {
-                a[firstnum] = items[firstnum];
+                a[aHelp] = items[firstnum];
                 firstnum--;
+                aHelp--;
             }
             items = a;
-            nextLast = items.length - 1;
-            nextFirst = size;
+            nextLast = a.length - 1 - size ;
+            nextFirst = 0;
         }
         lastAndFirst();
     }

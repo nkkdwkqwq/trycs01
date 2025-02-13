@@ -1,19 +1,51 @@
 package deque;
 
 import org.junit.Test;
+
+import java.util.Comparator;
+
 import static org.junit.Assert.*;
 /** Performs some basic linked list tests. */
 public class LinkedListDequeTest {
 
     @Test
     public void arrayTeat() {
+        /*
         ArrayDeque<Integer> a = new ArrayDeque<>();
         LinkedListDeque<Integer>  l = new LinkedListDeque<>();
+        MaxArrayDeque<Integer> MaxArrayDeque = new MaxArrayDeque<>(Integer::compareTo);
         for(int i = 0; i <= 100; i++) {
             a.addLast(i);
             l.addLast(i);
         }
-        assertTrue(a.equals(l));
+
+         */
+        MaxArrayDeque<Integer> MaxArrayDeque = new MaxArrayDeque<>(Integer::compareTo);
+        MaxArrayDeque.addFirst(0);
+        MaxArrayDeque.addFirst(1);
+        MaxArrayDeque.addFirst(2);
+        MaxArrayDeque.removeFirst();
+        MaxArrayDeque.addFirst(4);
+        MaxArrayDeque.addFirst(5);
+        MaxArrayDeque.addFirst(6);
+        MaxArrayDeque.get(1);
+        MaxArrayDeque.get(2);
+        MaxArrayDeque.addLast(9);
+        MaxArrayDeque.removeLast();
+        MaxArrayDeque.addLast(11);
+        MaxArrayDeque.addLast(12);
+        MaxArrayDeque.addFirst(13);
+        MaxArrayDeque.addFirst(14);
+        MaxArrayDeque.get(5);
+        MaxArrayDeque.removeLast();
+        MaxArrayDeque.removeLast();
+        MaxArrayDeque.removeFirst();
+        MaxArrayDeque.removeLast();
+        MaxArrayDeque.removeLast();
+        MaxArrayDeque.addLast(21);
+        MaxArrayDeque.removeLast();
+        int c = MaxArrayDeque.removeFirst();
+        assertEquals(13, c);
      }
     @Test
     public void arrayTest() {

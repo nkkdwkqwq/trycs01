@@ -216,16 +216,16 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T>  {
         if (o == null) {
             return false;
         }
-        if (o.getClass() != this.getClass()) {
+        if (o.getClass() != ArrayDeque.class && o.getClass() != LinkedListDeque.class) {
             return false;
         }
-        ArrayDeque<T> o1 = (ArrayDeque<T>) o;
+        Deque<T> o1 = (Deque<T>) o;
         if (o1.size() != this.size()) {
             return false;
         }
         int mid = 0;
         while (mid <=  size - 1) {
-            if (o1.get(mid) != this.get(mid)) {
+            if (!o1.get(mid).equals(this.get(mid))) {
                 return false;
             }
             mid++;

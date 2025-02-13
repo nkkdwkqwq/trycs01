@@ -42,33 +42,4 @@ public class MaxArrayDeque<T> extends ArrayDeque<T> {
             return null;
         }
     }
-
-    /*
-    @Override
-    public boolean equals(Object o) {
-
-        if (o == this) {
-            return true;
-        }
-        if (o == null) {
-            return false;
-        }
-        if (o.getClass() != this.getClass()) {
-            return false;
-        }
-        MaxArrayDeque<T> o1 = (MaxArrayDeque<T>) o;
-        if (o1.size() != this.size()) {
-            return false;
-        }
-        int mid = 0;
-        while (mid <= size() - 1) {
-            if (o1.get(mid) != this.get(mid)) {
-                return false;
-            }
-            mid++;
-        }
-        return true;
-
-    }
-     */
 }

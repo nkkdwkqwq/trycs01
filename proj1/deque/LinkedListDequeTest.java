@@ -7,14 +7,13 @@ public class LinkedListDequeTest {
 
     @Test
     public void arrayTeat() {
-        ArrayDeque<Integer> ArrayDeque = new ArrayDeque<>();
+        ArrayDeque<Integer> a = new ArrayDeque<>();
+        LinkedListDeque<Integer>  l = new LinkedListDeque<>();
         for(int i = 0; i <= 100; i++) {
-            ArrayDeque.addLast(i);
+            a.addLast(i);
+            l.addLast(i);
         }
-        for(int i = 0; i <= 100; i++) {
-            int c = ArrayDeque.get(i);
-            assertEquals(i, c);
-        }
+        assertTrue(a.equals(l));
      }
     @Test
     public void arrayTest() {

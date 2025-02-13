@@ -6,7 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="4b4d61e4-f13a-4407-a2d6-06a20f379096" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/deque/ArrayDeque.java" beforeDir="false" afterPath="$PROJECT_DIR$/deque/ArrayDeque.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gh2/GuitarString.java" beforeDir="false" afterPath="$PROJECT_DIR$/gh2/GuitarString.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/deque/LinkedListDequeTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/deque/LinkedListDequeTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/proj1/deque/LinkedListDequeTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/proj1/deque/LinkedListDequeTest.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -161,18 +162,14 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/deque/LinkedListDequeTest.java</url>
-          <line>12</line>
-          <option name="timeStamp" value="15" />
+          <line>13</line>
+          <option name="timeStamp" value="19" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
+          <condition expression="i == 15" language="JAVA" />
           <url>file://$PROJECT_DIR$/deque/LinkedListDequeTest.java</url>
           <line>11</line>
-          <option name="timeStamp" value="16" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/deque/LinkedListDequeTest.java</url>
-          <line>10</line>
-          <option name="timeStamp" value="17" />
+          <option name="timeStamp" value="20" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

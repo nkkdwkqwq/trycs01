@@ -38,16 +38,20 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T>  {
         T[] a = (T[]) new Object[capacity];
         lastAndFirst();
         if (lastItem > firstItem) {
-            int firstnum = firstItem;
-            int wholelastlength = items.length;
-            while (firstnum > 0) {
-                a[firstnum] = items[firstnum];
-                firstnum--;
+            int firstNum = firstItem;
+            int wholeLastLength01 = items.length - 1;
+            int wholeLastLength02 = a.length - 1;
+            while (firstNum >= 0) {
+                a[firstNum] = items[firstNum];
+                firstNum--;
             }
-            while (nextLast + 1 > wholelastlength) {
-                a[wholelastlength] = items[wholelastlength];
-                wholelastlength--;
+            while (lastItem <= wholeLastLength01) {
+                a[wholeLastLength02] = items[wholeLastLength01];
+                wholeLastLength01--;
+                wholeLastLength02--;
             }
+            items = a;
+            nextFirst = firstItem + 1;
             nextLast = items.length - size + nextFirst - 1;
         } else  {
             int firstnum = firstItem;
@@ -56,10 +60,10 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T>  {
                 a[firstnum] = items[firstnum];
                 firstnum--;
             }
-            nextLast = 0;
+            items = a;
+            nextLast = items.length - 1;
             nextFirst = size;
         }
-        items = a;
         lastAndFirst();
     }
 
@@ -167,10 +171,10 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T>  {
         }
 
         if (firstItem <= lastItem) {
-            if (index < firstItem) {
-                return items[lastItem - index];
+            if (index <= firstItem) {
+                return items[firstItem - index];
             } else {
-                return items[firstItem - index + items.length];
+                return items[items.length - index + firstItem];
             }
         } else {
             return items[firstItem - index];

@@ -8,18 +8,13 @@ public class LinkedListDequeTest {
     @Test
     public void arrayTeat() {
         ArrayDeque<Integer> ArrayDeque = new ArrayDeque<>();
-        ArrayDeque.addFirst(0);
-        ArrayDeque.addFirst(1);
-        ArrayDeque.isEmpty();
-        ArrayDeque.addFirst(3);
-        ArrayDeque.addFirst(4);
-        ArrayDeque.addFirst(5);
-        ArrayDeque.addFirst(6);
-        ArrayDeque.addFirst(7);
-        ArrayDeque.removeFirst();
-        ArrayDeque.addFirst(9);
-        ArrayDeque.addFirst(10);
-        ArrayDeque.addFirst(11);
+        for(int i = 0; i <= 100; i++) {
+            ArrayDeque.addLast(i);
+        }
+        for(int i = 0; i <= 100; i++) {
+            int c = ArrayDeque.get(i);
+            assertEquals(i, c);
+        }
      }
     @Test
     public void arrayTest() {

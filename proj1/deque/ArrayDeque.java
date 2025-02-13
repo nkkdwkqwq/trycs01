@@ -37,7 +37,7 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T>  {
     private void resize(int capacity) {
         T[] a = (T[]) new Object[capacity];
         lastAndFirst();
-        if(lastItem > firstItem) {
+        if (lastItem > firstItem) {
             int firstnum = firstItem;
             int wholelastlength = items.length;
             while (firstnum > 0) {
@@ -48,7 +48,6 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T>  {
                 a[wholelastlength] = items[wholelastlength];
                 wholelastlength--;
             }
-            items = a;
             nextLast = items.length - size + nextFirst - 1;
         } else  {
             int firstnum = firstItem;
@@ -56,10 +55,11 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T>  {
             while (firstnum >= lastnum) {
                 a[firstnum] = items[firstnum];
                 firstnum--;
-                nextLast = 0;
-                nextFirst = size;
             }
+            nextLast = 0;
+            nextFirst = size;
         }
+        items = a;
         lastAndFirst();
     }
 

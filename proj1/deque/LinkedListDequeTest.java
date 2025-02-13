@@ -10,7 +10,16 @@ public class LinkedListDequeTest {
         ArrayDeque<Integer> ArrayDeque = new ArrayDeque<>();
         ArrayDeque.addFirst(0);
         ArrayDeque.addFirst(1);
-        ArrayDeque.get(0);
+        ArrayDeque.isEmpty();
+        ArrayDeque.addFirst(3);
+        ArrayDeque.addFirst(4);
+        ArrayDeque.addFirst(5);
+        ArrayDeque.addFirst(6);
+        ArrayDeque.addFirst(7);
+        ArrayDeque.removeFirst();
+        ArrayDeque.addFirst(9);
+        ArrayDeque.addFirst(10);
+        ArrayDeque.addFirst(11);
      }
     @Test
     public void arrayTest() {

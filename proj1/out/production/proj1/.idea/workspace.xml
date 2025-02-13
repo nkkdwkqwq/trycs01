@@ -6,18 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="4b4d61e4-f13a-4407-a2d6-06a20f379096" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/deque/ArrayDeque.java" beforeDir="false" afterPath="$PROJECT_DIR$/deque/ArrayDeque.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/deque/LinkedListDeque.java" beforeDir="false" afterPath="$PROJECT_DIR$/deque/LinkedListDeque.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/deque/LinkedListDequeTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/deque/LinkedListDequeTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/deque/MaxArrayDeque.java" beforeDir="false" afterPath="$PROJECT_DIR$/deque/MaxArrayDeque.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/deque/ArrayDeque.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/deque/LinkedListDeque$Node.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/deque/LinkedListDeque.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/deque/LinkedListDequeTest.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/gh2/GuitarHeroLite.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/gh2/GuitarPlayer.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/gh2/GuitarString.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/gh2/TTFAF.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/gh2/TestGuitarString.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/gh2/GuitarString.java" beforeDir="false" afterPath="$PROJECT_DIR$/gh2/GuitarString.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -26,6 +15,9 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="jar://$PROJECT_DIR$/../library-sp21/javalib/stdlib-package.jar!/edu/princeton/cs/introcs/StdAudio.java" root0="SKIP_INSPECTION" />
   </component>
   <component name="MavenImportPreferences">
     <option name="generalSettings">
@@ -45,8 +37,15 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "JUnit.LinkedListDequeTest.arrayTeat.executor": "Run",
+    "JUnit.LinkedListDequeTest.arrayTest.executor": "Run",
+    "JUnit.LinkedListDequeTest.equalTest.executor": "Run",
     "JUnit.LinkedListDequeTest.executor": "Run",
     "JUnit.LinkedListDequeTest.getRecursiveTest.executor": "Run",
+    "JUnit.TestGuitarString.executor": "Run",
+    "JUnit.TestGuitarString.testPluckTheAString.executor": "Run",
+    "JUnit.TestGuitarString.testTic.executor": "Run",
+    "JUnit.TestGuitarString.testTicCalculations.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "main",
     "kotlin-language-version-configured": "true",
@@ -54,10 +53,10 @@
     "project.structure.last.edited": "Modules",
     "project.structure.proportion": "0.0",
     "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "MavenSettings"
+    "settings.editor.selected.configurable": "preferences.pluginManager"
   }
 }]]></component>
-  <component name="RunManager" selected="JUnit.LinkedListDequeTest.getRecursiveTest">
+  <component name="RunManager" selected="JUnit.LinkedListDequeTest.arrayTeat">
     <configuration name="LinkedListDequeTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="proj1" />
       <extension name="coverage">
@@ -73,7 +72,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="LinkedListDequeTest.getRecursiveTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="LinkedListDequeTest.arrayTeat" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="proj1" />
       <extension name="coverage">
         <pattern>
@@ -83,7 +82,54 @@
       </extension>
       <option name="PACKAGE_NAME" value="deque" />
       <option name="MAIN_CLASS_NAME" value="deque.LinkedListDequeTest" />
-      <option name="METHOD_NAME" value="getRecursiveTest" />
+      <option name="METHOD_NAME" value="arrayTeat" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="LinkedListDequeTest.arrayTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="proj1" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="deque.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="deque" />
+      <option name="MAIN_CLASS_NAME" value="deque.LinkedListDequeTest" />
+      <option name="METHOD_NAME" value="arrayTest" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TestGuitarString" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="proj1" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="gh2.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="gh2" />
+      <option name="MAIN_CLASS_NAME" value="gh2.TestGuitarString" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TestGuitarString.testTicCalculations" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="proj1" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="gh2.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="gh2" />
+      <option name="MAIN_CLASS_NAME" value="gh2.TestGuitarString" />
+      <option name="METHOD_NAME" value="testTicCalculations" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -91,8 +137,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.LinkedListDequeTest.getRecursiveTest" />
+        <item itemvalue="JUnit.LinkedListDequeTest.arrayTeat" />
         <item itemvalue="JUnit.LinkedListDequeTest" />
+        <item itemvalue="JUnit.LinkedListDequeTest.arrayTest" />
+        <item itemvalue="JUnit.TestGuitarString" />
+        <item itemvalue="JUnit.TestGuitarString.testTicCalculations" />
       </list>
     </recent_temporary>
   </component>
@@ -106,5 +155,26 @@
       <updated>1739323849985</updated>
     </task>
     <servers />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/deque/LinkedListDequeTest.java</url>
+          <line>12</line>
+          <option name="timeStamp" value="15" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/deque/LinkedListDequeTest.java</url>
+          <line>11</line>
+          <option name="timeStamp" value="16" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/deque/LinkedListDequeTest.java</url>
+          <line>10</line>
+          <option name="timeStamp" value="17" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

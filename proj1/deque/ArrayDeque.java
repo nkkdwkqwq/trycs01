@@ -8,8 +8,8 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T>  {
     private int size;
     private int nextFirst = 0;
     private int nextLast;
-    private int Firstitem;
-    private int Lastitem;
+    private int firstItem;
+    private int lastItem;
 
 
     public ArrayDeque() {
@@ -19,26 +19,26 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T>  {
     }
 
     // handle and return  last item and first item;
-    private void LastAndFirst(){
-        Firstitem = nextFirst;
-        Lastitem = nextLast;
-        if (Firstitem - 1 < 0) {
-            Firstitem = items.length - 1;
+    private void lastAndFirst() {
+        firstItem = nextFirst;
+        lastItem = nextLast;
+        if (firstItem - 1 < 0) {
+            firstItem = items.length - 1;
         } else {
-            Firstitem = Firstitem - 1;
+            firstItem = firstItem - 1;
         }
-        if (Lastitem + 1 > items.length) {
-            Lastitem = 0;
+        if (lastItem + 1 >= items.length) {
+            lastItem = 0;
         } else {
-            Lastitem = Lastitem + 1;
+            lastItem = lastItem + 1;
         }
     }
 
     private void resize(int capacity) {
         T[] a = (T[]) new Object[capacity];
-        LastAndFirst();
-        if(Lastitem > Firstitem) {
-            int firstnum = Firstitem;
+        lastAndFirst();
+        if(lastItem > firstItem) {
+            int firstnum = firstItem;
             int wholelastlength = items.length;
             while (firstnum > 0) {
                 a[firstnum] = items[firstnum];
@@ -51,8 +51,8 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T>  {
             items = a;
             nextLast = items.length - size + nextFirst - 1;
         } else  {
-            int firstnum = Firstitem;
-            int lastnum = Lastitem;
+            int firstnum = firstItem;
+            int lastnum = lastItem;
             while (firstnum >= lastnum) {
                 a[firstnum] = items[firstnum];
                 firstnum--;
@@ -60,7 +60,7 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T>  {
                 nextFirst = size;
             }
         }
-        LastAndFirst();
+        lastAndFirst();
     }
 
     @Override
@@ -75,7 +75,7 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T>  {
         } else {
             nextFirst++;
         }
-        LastAndFirst();
+        lastAndFirst();
     }
 
     @Override
@@ -85,12 +85,12 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T>  {
         }
         items[nextLast] = t;
         size++;
-        if(nextLast - 1 < 0) {
+        if (nextLast - 1 < 0) {
             nextLast = items.length - 1;
         } else {
             nextLast--;
         }
-        LastAndFirst();
+        lastAndFirst();
     }
 
 
@@ -101,21 +101,21 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T>  {
 
     @Override
     public void printDeque() {
-        if (Firstitem <= Lastitem) {
-            int firstnum = Firstitem;
+        if (firstItem <= lastItem) {
+            int firstnum = firstItem;
             int wholelastlength = items.length;
             int midzise = size;
             while (firstnum >= 0) {
                 System.out.print(items[firstnum] + " ");
                 firstnum--;
             }
-            while (Lastitem != wholelastlength) {
+            while (lastItem != wholelastlength) {
                 System.out.print(items[wholelastlength] + " ");
                 wholelastlength--;
             }
         } else {
-            int firstnum = Firstitem;
-            int lastnum = Lastitem;
+            int firstnum = firstItem;
+            int lastnum = lastItem;
             while (firstnum >= lastnum) {
                 System.out.print(items[firstnum] + " ");
                 firstnum--;
@@ -137,7 +137,7 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T>  {
             nextFirst--;
         }
         size--;
-        LastAndFirst();
+        lastAndFirst();
         return items[nextFirst];
     }
 
@@ -156,7 +156,7 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T>  {
             nextLast++;
         }
         size--;
-        LastAndFirst();
+        lastAndFirst();
         return items[nextLast];
     }
 
@@ -166,14 +166,14 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T>  {
             return null;
         }
 
-        if(Firstitem <= Lastitem) {
-            if (index < Firstitem) {
-                return items[Lastitem - index];
+        if (firstItem <= lastItem) {
+            if (index < firstItem) {
+                return items[lastItem - index];
             } else {
-                return items[Firstitem - index + items.length];
+                return items[firstItem - index + items.length];
             }
         } else {
-            return items[Firstitem - index];
+            return items[firstItem - index];
         }
 
 

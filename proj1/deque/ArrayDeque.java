@@ -8,6 +8,9 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T>  {
     private int size;
     private int nextFirst = 0;
     private int nextLast;
+    private int Firstitem;
+    private int Lastitem;
+
 
     public ArrayDeque() {
         items = (T[]) new Object[8];
@@ -15,10 +18,27 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T>  {
         nextLast = items.length - 1;
     }
 
+    // handle and return  last item and first item;
+    private void LastAndFirst(){
+        Firstitem = nextFirst;
+        Lastitem = nextLast;
+        if (Firstitem - 1 < 0) {
+            Firstitem = items.length - 1;
+        } else {
+            Firstitem = Firstitem - 1;
+        }
+        if (Lastitem + 1 > items.length) {
+            Lastitem = 0;
+        } else {
+            Lastitem = Lastitem + 1;
+        }
+    }
+
     private void resize(int capacity) {
         T[] a = (T[]) new Object[capacity];
-        if(nextFirst <= nextLast) {
-            int firstnum = nextFirst - 1;
+        LastAndFirst();
+        if(Lastitem > Firstitem) {
+            int firstnum = Firstitem;
             int wholelastlength = items.length;
             while (firstnum > 0) {
                 a[firstnum] = items[firstnum];
@@ -30,9 +50,9 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T>  {
             }
             items = a;
             nextLast = items.length - size + nextFirst - 1;
-        } else {
-            int firstnum = nextFirst - 1;
-            int lastnum = nextLast + 1;
+        } else  {
+            int firstnum = Firstitem;
+            int lastnum = Lastitem;
             while (firstnum >= lastnum) {
                 a[firstnum] = items[firstnum];
                 firstnum--;
@@ -40,6 +60,7 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T>  {
                 nextFirst = size;
             }
         }
+        LastAndFirst();
     }
 
     @Override
@@ -54,7 +75,7 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T>  {
         } else {
             nextFirst++;
         }
-
+        LastAndFirst();
     }
 
     @Override
@@ -69,7 +90,7 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T>  {
         } else {
             nextLast--;
         }
-
+        LastAndFirst();
     }
 
 
@@ -80,21 +101,21 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T>  {
 
     @Override
     public void printDeque() {
-        if (nextFirst <= nextLast) {
-            int firstnum = nextFirst - 1;
+        if (Firstitem <= Lastitem) {
+            int firstnum = Firstitem;
             int wholelastlength = items.length;
             int midzise = size;
             while (firstnum >= 0) {
                 System.out.print(items[firstnum] + " ");
                 firstnum--;
             }
-            while (nextLast - 1 != wholelastlength) {
+            while (Lastitem != wholelastlength) {
                 System.out.print(items[wholelastlength] + " ");
                 wholelastlength--;
             }
         } else {
-            int firstnum = nextFirst - 1;
-            int lastnum = nextLast + 1;
+            int firstnum = Firstitem;
+            int lastnum = Lastitem;
             while (firstnum >= lastnum) {
                 System.out.print(items[firstnum] + " ");
                 firstnum--;
@@ -116,6 +137,7 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T>  {
             nextFirst--;
         }
         size--;
+        LastAndFirst();
         return items[nextFirst];
     }
 
@@ -128,12 +150,13 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T>  {
             return null;
         }
 
-        if (nextLast == items.length-1) {
+        if (nextLast == items.length - 1) {
             nextLast = 0;
         } else {
             nextLast++;
         }
         size--;
+        LastAndFirst();
         return items[nextLast];
     }
 
@@ -142,14 +165,15 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T>  {
         if (index > size - 1 || index < 0) {
             return null;
         }
-        if(nextFirst <= nextLast) {
-            if (index < nextFirst) {
-                return items[nextFirst - index - 1];
+
+        if(Firstitem <= Lastitem) {
+            if (index < Firstitem) {
+                return items[Lastitem - index];
             } else {
-                return items[nextFirst - index - 1 + items.length];
+                return items[Firstitem - index + items.length];
             }
         } else {
-            return items[nextFirst - 1 - index];
+            return items[Firstitem - index];
         }
 
 

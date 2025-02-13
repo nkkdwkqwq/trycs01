@@ -6,6 +6,33 @@ import static org.junit.Assert.*;
 public class LinkedListDequeTest {
 
     @Test
+    public void arrayTeat(){
+        ArrayDeque<Integer> lld1 = new ArrayDeque<>();
+        for(int i = 0; i < 3;i++){
+            lld1.addLast(0);
+        }
+        int c = lld1.get(2);
+        assertEquals(0,c);
+        ArrayDeque<Integer> ArrayDeque = new ArrayDeque<>();
+        ArrayDeque.addLast(0);
+        ArrayDeque.get(0)  ;
+        ArrayDeque.addLast(2);
+        ArrayDeque.addLast(3);
+        ArrayDeque.addFirst(4);
+        ArrayDeque.get(2);
+        ArrayDeque.addFirst(6);
+        ArrayDeque.get(0);
+        ArrayDeque.addFirst(8);
+        ArrayDeque.removeFirst();
+        ArrayDeque.removeLast();
+        ArrayDeque.addLast(11);
+        ArrayDeque.addFirst(12);
+        ArrayDeque.get(3);
+        ArrayDeque.addLast(14);
+        ArrayDeque.addLast(15);
+        ArrayDeque.get(6);
+     }
+    @Test
     public void arrayTest(){
         ArrayDeque<Integer> lld1 = new ArrayDeque<>();
         lld1.addFirst(4);
@@ -24,13 +51,6 @@ public class LinkedListDequeTest {
         a = lld1.removeFirst();
         a = lld1.removeFirst();
         a = lld1.removeFirst();
-        a = lld1.removeFirst();
-        a = lld1.removeFirst();
-        LinkedListDeque<Integer> lld2 = new LinkedListDeque<>();
-        lld2.addFirst(4);
-        lld2.addFirst(5);
-        lld2.addFirst(6);
-        boolean c = lld1.equals(lld2);
 
     }
 

@@ -17,18 +17,29 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T>  {
 
     private void resize(int capacity) {
         T[] a = (T[]) new Object[capacity];
-        int firstnum = nextFirst - 1;
-        int wholelastlength = items.length;
-        while (firstnum > 0) {
-            a[firstnum] = items[firstnum];
-            firstnum--;
+        if(nextFirst <= nextLast) {
+            int firstnum = nextFirst - 1;
+            int wholelastlength = items.length;
+            while (firstnum > 0) {
+                a[firstnum] = items[firstnum];
+                firstnum--;
+            }
+            while (nextLast + 1 > wholelastlength) {
+                a[wholelastlength] = items[wholelastlength];
+                wholelastlength--;
+            }
+            items = a;
+            nextLast = items.length - size + nextFirst - 1;
+        } else {
+            int firstnum = nextFirst - 1;
+            int lastnum = nextLast + 1;
+            while (firstnum >= lastnum) {
+                a[firstnum] = items[firstnum];
+                firstnum--;
+                nextLast = 0;
+                nextFirst = size;
+            }
         }
-        while (nextLast + 1 > wholelastlength) {
-            a[wholelastlength] = items[wholelastlength];
-            wholelastlength--;
-        }
-        items = a;
-        nextLast = items.length - size + nextFirst - 1;
     }
 
     @Override
@@ -38,7 +49,12 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T>  {
         }
         items[nextFirst] = t;
         size++;
-        nextFirst++;
+        if (nextFirst + 1 > items.length - 1) {
+            nextFirst = 0;
+        } else {
+            nextFirst++;
+        }
+
     }
 
     @Override
@@ -48,7 +64,12 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T>  {
         }
         items[nextLast] = t;
         size++;
-        nextLast--;
+        if(nextLast - 1 < 0) {
+            nextLast = items.length - 1;
+        } else {
+            nextLast--;
+        }
+
     }
 
 
@@ -59,15 +80,25 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T>  {
 
     @Override
     public void printDeque() {
-        int firstnum = nextFirst - 1;
-        int wholelastlength = items.length;
-        while (firstnum >= 0) {
-            System.out.print(items[firstnum] + " ");
-            firstnum--;
-        }
-        while (nextLast - 1 != wholelastlength) {
-            System.out.print(items[wholelastlength] + " ");
-            wholelastlength--;
+        if (nextFirst <= nextLast) {
+            int firstnum = nextFirst - 1;
+            int wholelastlength = items.length;
+            int midzise = size;
+            while (firstnum >= 0) {
+                System.out.print(items[firstnum] + " ");
+                firstnum--;
+            }
+            while (nextLast - 1 != wholelastlength) {
+                System.out.print(items[wholelastlength] + " ");
+                wholelastlength--;
+            }
+        } else {
+            int firstnum = nextFirst - 1;
+            int lastnum = nextLast + 1;
+            while (firstnum >= lastnum) {
+                System.out.print(items[firstnum] + " ");
+                firstnum--;
+            }
         }
     }
 
@@ -76,11 +107,14 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T>  {
         if (items.length >= 16 && 4 * size <= items.length) {
             resize(items.length / 2);
         }
-        if (nextFirst == 0) {
+        if (size == 0) {
             return null;
         }
-
-        nextFirst--;
+        if (nextFirst == 0) {
+            nextFirst = items.length - 1;
+        } else {
+            nextFirst--;
+        }
         size--;
         return items[nextFirst];
     }
@@ -90,25 +124,32 @@ public class ArrayDeque<T> implements Deque<T>, Iterable<T>  {
         if (items.length >= 16 && 4 * size <= items.length) {
             resize(items.length / 2);
         }
-        if (nextLast >= items.length - 1) {
+        if (size == 0) {
             return null;
         }
 
-        nextLast++;
+        if (nextLast == items.length-1) {
+            nextLast = 0;
+        } else {
+            nextLast++;
+        }
         size--;
         return items[nextLast];
     }
 
     @Override
     public T get(int index) {
-        if (index >= nextFirst - 1 + items.length - nextLast || index < 0) {
+        if (index > size - 1 || index < 0) {
             return null;
         }
-
-        if (index < nextFirst) {
-            return items[nextFirst - index - 1];
+        if(nextFirst <= nextLast) {
+            if (index < nextFirst) {
+                return items[nextFirst - index - 1];
+            } else {
+                return items[nextFirst - index - 1 + items.length];
+            }
         } else {
-            return items[nextFirst - index - 1 + items.length];
+            return items[nextFirst - 1 - index];
         }
 
 

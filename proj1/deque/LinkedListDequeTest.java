@@ -6,6 +6,35 @@ import static org.junit.Assert.*;
 public class LinkedListDequeTest {
 
     @Test
+    public void arrayTest(){
+        ArrayDeque<Integer> lld1 = new ArrayDeque<>();
+        lld1.addFirst(4);
+        lld1.addFirst(5);
+        lld1.addFirst(6);
+        lld1.addFirst(7);
+        lld1.addFirst(8);
+        lld1.addFirst(9);
+        lld1.addFirst(10);
+        lld1.addFirst(11);
+        int a;
+        a = lld1.removeLast();
+        a = lld1.removeFirst();
+        a = lld1.removeFirst();
+        a = lld1.removeFirst();
+        a = lld1.removeFirst();
+        a = lld1.removeFirst();
+        a = lld1.removeFirst();
+        a = lld1.removeFirst();
+        a = lld1.removeFirst();
+        LinkedListDeque<Integer> lld2 = new LinkedListDeque<>();
+        lld2.addFirst(4);
+        lld2.addFirst(5);
+        lld2.addFirst(6);
+        boolean c = lld1.equals(lld2);
+
+    }
+
+    @Test
     public void equalTest() {
         LinkedListDeque<Integer> lld1 = new LinkedListDeque<>();
         lld1.addFirst(4);

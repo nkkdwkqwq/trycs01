@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="a87f3b15-54a3-4252-a7f6-3aff8890fd6c" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/../lab7/bstmap/BSTMap.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lab6/capers/CapersRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../lab6/capers/CapersRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lab6/capers/Dog.java" beforeDir="false" afterPath="$PROJECT_DIR$/../lab6/capers/Dog.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lab6/capers/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/../lab6/capers/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hashmap/MyHashMap.java" beforeDir="false" afterPath="$PROJECT_DIR$/hashmap/MyHashMap.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../proj1/out/production/proj1/deque/LinkedListDequeTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/../proj1/out/production/proj1/deque/LinkedListDequeTest.class" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="localRepository" value="C:\Users\lkh\Desktop\cs61b\trycs01\library-sp21\javalib" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 8
+}</component>
+  <component name="ProjectId" id="2thkAVN8k9FgSkstgENlB2jzAzq" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.InsertRandomSpeedTest.executor": "Run",
+    "JUnit.TestMyHashMap.executor": "Run",
+    "JUnit.TestMyHashMap.sanityKeySetTest.executor": "Debug",
+    "JUnit.TestMyHashMapBuckets.executor": "Run",
+    "JUnit.TestMyHashMapExtra.executor": "Run",
+    "JUnit.TestMyHashMapExtra.testRemove.executor": "Debug",
+    "JUnit.TestMyHashMapExtra.testRemoveThreeCases.executor": "Debug",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "main",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/lkh/Desktop/cs61b/trycs01/proj2",
+    "settings.editor.selected.configurable": "MavenSettings"
+  }
+}]]></component>
+  <component name="RunManager" selected="JUnit.TestMyHashMapExtra">
+    <configuration name="TestMyHashMap" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="lab8" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="hashmap.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="hashmap" />
+      <option name="MAIN_CLASS_NAME" value="hashmap.TestMyHashMap" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TestMyHashMapBuckets" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="lab8" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="hashmap.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="hashmap" />
+      <option name="MAIN_CLASS_NAME" value="hashmap.TestMyHashMapBuckets" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TestMyHashMapExtra" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="lab8" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="hashmap.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="hashmap" />
+      <option name="MAIN_CLASS_NAME" value="hashmap.TestMyHashMapExtra" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TestMyHashMapExtra.testRemove" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="lab8" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="hashmap.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="hashmap" />
+      <option name="MAIN_CLASS_NAME" value="hashmap.TestMyHashMapExtra" />
+      <option name="METHOD_NAME" value="testRemove" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TestMyHashMapExtra.testRemoveThreeCases" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="lab8" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="hashmap.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="hashmap" />
+      <option name="MAIN_CLASS_NAME" value="hashmap.TestMyHashMapExtra" />
+      <option name="METHOD_NAME" value="testRemoveThreeCases" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.TestMyHashMapExtra" />
+        <item itemvalue="JUnit.TestMyHashMapBuckets" />
+        <item itemvalue="JUnit.TestMyHashMap" />
+        <item itemvalue="JUnit.TestMyHashMapExtra.testRemove" />
+        <item itemvalue="JUnit.TestMyHashMapExtra.testRemoveThreeCases" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="a87f3b15-54a3-4252-a7f6-3aff8890fd6c" name="Changes" comment="" />
+      <created>1740811550386</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1740811550386</updated>
+    </task>
+    <servers />
+  </component>
+</project>

@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="bcb9971f-a855-44fc-aab1-52054a395583" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/bstmap/BSTMap.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lab6/capers/CapersRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../lab6/capers/CapersRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lab6/capers/Dog.java" beforeDir="false" afterPath="$PROJECT_DIR$/../lab6/capers/Dog.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lab6/capers/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/../lab6/capers/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lab8/hashmap/MyHashMap.java" beforeDir="false" afterPath="$PROJECT_DIR$/../lab8/hashmap/MyHashMap.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../proj1/out/production/proj1/deque/LinkedListDequeTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/../proj1/out/production/proj1/deque/LinkedListDequeTest.class" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="localRepository" value="C:\Users\lkh\Desktop\cs61b\trycs01\library-sp21\javalib" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 7
+}</component>
+  <component name="ProjectId" id="2tKtPvhlTYDUTdXDwbwdmyNGMME" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.InsertInOrderSpeedTest.executor": "Run",
+    "Application.InsertRandomSpeedTest.executor": "Run",
+    "JUnit.TestBSTMap.containsKeyNullTest.executor": "Debug",
+    "JUnit.TestBSTMap.executor": "Run",
+    "JUnit.TestBSTMap.sanityClearTest.executor": "Debug",
+    "JUnit.TestBSTMap.sanityContainsKeyTest.executor": "Run",
+    "JUnit.TestBSTMapExtra.executor": "Run",
+    "JUnit.TestBSTMapExtra.sanityKeySetTest.executor": "Run",
+    "JUnit.TestBSTMapExtra.testRemoveRoot.executor": "Debug",
+    "JUnit.TestBSTMapExtra.testRemoveThreeCases.executor": "Debug",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "main",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/lkh/Desktop/cs61b/trycs01/lab7",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
+    "settings.editor.selected.configurable": "MavenSettings"
+  }
+}]]></component>
+  <component name="RunManager" selected="JUnit.TestBSTMap">
+    <configuration name="TestBSTMap" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="lab7" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="bstmap.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="bstmap" />
+      <option name="MAIN_CLASS_NAME" value="bstmap.TestBSTMap" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TestBSTMapExtra" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="lab7" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="bstmap.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="bstmap" />
+      <option name="MAIN_CLASS_NAME" value="bstmap.TestBSTMapExtra" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TestBSTMapExtra.sanityKeySetTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="lab7" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="bstmap.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="bstmap" />
+      <option name="MAIN_CLASS_NAME" value="bstmap.TestBSTMapExtra" />
+      <option name="METHOD_NAME" value="sanityKeySetTest" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TestBSTMapExtra.testRemoveRoot" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="lab7" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="bstmap.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="bstmap" />
+      <option name="MAIN_CLASS_NAME" value="bstmap.TestBSTMapExtra" />
+      <option name="METHOD_NAME" value="testRemoveRoot" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="TestBSTMapExtra.testRemoveThreeCases" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="lab7" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="bstmap.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="bstmap" />
+      <option name="MAIN_CLASS_NAME" value="bstmap.TestBSTMapExtra" />
+      <option name="METHOD_NAME" value="testRemoveThreeCases" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.TestBSTMap" />
+        <item itemvalue="JUnit.TestBSTMapExtra" />
+        <item itemvalue="JUnit.TestBSTMapExtra.sanityKeySetTest" />
+        <item itemvalue="JUnit.TestBSTMapExtra.testRemoveThreeCases" />
+        <item itemvalue="JUnit.TestBSTMapExtra.testRemoveRoot" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="bcb9971f-a855-44fc-aab1-52054a395583" name="Changes" comment="" />
+      <created>1740112572612</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1740112572612</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/bstmap/TestBSTMap.java</url>
+          <line>86</line>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+</project>

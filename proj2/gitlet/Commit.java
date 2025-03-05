@@ -4,10 +4,10 @@ package gitlet;
 
 import java.io.File;
 import java.io.Serializable;
-import java.util.Date; // TODO: You'll likely use this in this class
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.TreeMap;
+import java.text.SimpleDateFormat;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
 
 import static gitlet.Utils.*;
 
@@ -31,41 +31,69 @@ public class Commit implements Serializable {
     /** The message of this Commit. */
     private String message;
     private String parentID;
-    private long date;
+    private String formattedTime;
 
     /** The first string is name, the second is hashValue */
-    private TreeMap<String, String> treeMap;
+    private TreeMap<String, String> treeMap = new TreeMap<>();
     /* TODO: fill in the rest of this class. */
 
     /** The zero commit when init the repository */
     public void initialSetUp() {
         message = "initial commit";
-        date = 0L;
+        long timestampMillis = 0L;
+        Date date0 = new Date(timestampMillis);
+        SimpleDateFormat sdf = new SimpleDateFormat("EEE MMM dd HH:mm:ss yyyy Z", Locale.US);
+        sdf.setTimeZone(TimeZone.getTimeZone("America/Los_Angeles"));
+        formattedTime = sdf.format(date0);
         parentID = null;
-        treeMap = null;
     }
 
     public void gitCommit(String messages, String parent, File dir) {
         message = messages;
         parentID = parent;
-        date = System.currentTimeMillis();
-        List<String> l = Utils.plainFilenamesIn(dir);
-        if(l != null) {
-            for (String s : l) {
-                File f = new File(s);
+
+        /** Format date */
+        long timestampMillis = System.currentTimeMillis();
+        Date date0 = new Date(timestampMillis);
+        SimpleDateFormat sdf = new SimpleDateFormat("EEE MMM dd HH:mm:ss yyyy Z", Locale.US);
+        sdf.setTimeZone(TimeZone.getTimeZone("America/Los_Angeles"));
+        formattedTime = sdf.format(date0);
+
+        File f0 = join(Repository.COMMIT_DIR, parent);
+        treeMap = readObject(f0, Commit.class).getMap   ();
+
+        /* handle the file in the add stage */
+        /** some problems have not finish */
+        List<String> addList = Utils.plainFilenamesIn(dir);
+        if(addList != null) {
+            for (String s : addList) {
+                File f = new File(Repository.ADD_STAGE_DIR, s);
                 byte[] b = readContents(f);
                 treeMap.put(s, sha1(b));
+                f.delete();
+                /**
+                restrictedDelete(f);
+                 */
+            }
+        }
+
+        /* handle the file in the remove stage */
+        List<String> removeList = plainFilenamesIn(Repository.REMOVE_STAGE_DIR);
+        if(removeList != null) {
+            for (String s : removeList) {
+                File f = new File(Repository.REMOVE_STAGE_DIR, s);
+                treeMap.remove(s);
                 restrictedDelete(f);
             }
         }
     }
 
-    public String getParentID() {
-        return parentID;
+    public String getFormattedTime() {
+        return formattedTime;
     }
 
-    public long getDate() {
-        return date;
+    public String getParentID() {
+        return parentID;
     }
 
     public String getMessage() {

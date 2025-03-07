@@ -7,17 +7,14 @@ import java.util.*;
 
 import static gitlet.Utils.*;
 
-// TODO: any imports you need here
 
 /** Represents a gitlet repository.
- *  TODO: It's a good idea to give a description here of what else this Class
  *  does at a high level.
  *
  *  @author TODO
  */
 public class Repository implements Serializable {
     /**
-     * TODO: add instance variables here.
      *
      * List all instance variables of the Repository class here with a useful
      * comment above them describing what that variable represents and how that
@@ -60,7 +57,7 @@ public class Repository implements Serializable {
     public void setUpRepository() {
 
         /** Create essential dir */
-        if(!GITLET_DIR.mkdir()) {
+        if (!GITLET_DIR.mkdir()) {
             System.out.println("A Gitlet version-control system already exists in the current directory");
             return;
         }
@@ -114,7 +111,7 @@ public class Repository implements Serializable {
         File commitClass = join(Repository.COMMIT_DIR, head);
         Commit com = readObject(commitClass, Commit.class);
         TreeMap<String, String> tm = com.getMap();
-        if(tm != null) {
+        if (tm != null) {
             if (Objects.equals(tm.get(name), sha1(b))) {
                 File f0 = join(Repository.ADD_STAGE_DIR, name);
                 if (f0.exists()) {
@@ -134,7 +131,7 @@ public class Repository implements Serializable {
         Commit com = new Commit();
         List<String> l = plainFilenamesIn(ADD_STAGE_DIR);
         com.gitCommit(message, head, ADD_STAGE_DIR);
-        if(merged) {
+        if (merged) {
             com.setSecondParent(secondParentID0);
         }
         byte[] b = serialize(com);
@@ -175,14 +172,14 @@ public class Repository implements Serializable {
     public void rmFileToRepository(String name) {
         File workFile = new File(CWD, name);
         File addtionFile = new File(Repository.ADD_STAGE_DIR, name);
-        if(addtionFile.exists()) {
+        if (addtionFile.exists()) {
             restrictedDelete(addtionFile);
             return;
         }
         File commitClass = join(Repository.COMMIT_DIR, head);
         Commit com = readObject(commitClass, Commit.class);
         TreeMap<String, String> tm = com.getMap();
-        if(tm.get(name) != null) {
+        if (tm.get(name) != null) {
             File removeFile = join(Repository.REMOVE_STAGE_DIR, name);
             File blobFile = join(Repository.BLOB_DIR, tm.get(name));
             byte[] b = readContents(blobFile);
@@ -197,7 +194,7 @@ public class Repository implements Serializable {
 
     public void globalLogTheCommit() {
         List<String> l = plainFilenamesIn(Repository.COMMIT_DIR);
-        for(String current : l) {
+        for (String current : l) {
             File f = new File(Repository.COMMIT_DIR, current);
             Commit com = readObject(f, Commit.class);
             String date = com.getFormattedTime();
@@ -214,15 +211,15 @@ public class Repository implements Serializable {
     public void findCommitMessageId(String message) {
         Boolean existMessage = false;
         List<String> l = plainFilenamesIn(Repository.COMMIT_DIR);
-        for(String current : l) {
+        for (String current : l) {
             File f = new File(Repository.COMMIT_DIR, current);
             Commit com = readObject(f, Commit.class);
-            if(message.equals(com.getMessage())) {
+            if (message.equals(com.getMessage())) {
                 System.out.println(current);
                 existMessage= true;
             }
         }
-        if(!existMessage) {
+        if (!existMessage) {
             System.out.println("Found no commit with that message");
         }
     }
@@ -243,22 +240,22 @@ public class Repository implements Serializable {
         List<String> removeList = plainFilenamesIn(REMOVE_STAGE_DIR);
         System.out.println("=== " + "Branches" + " ===");
         System.out.println("*master");
-        if(!l.isEmpty()) {
-            for(String str : l) {
+        if (!l.isEmpty()) {
+            for (String str : l) {
                 System.out.println(str);
             }
         }
         System.out.println();
         System.out.println("=== " + "Staged Files" +" ===");
-        if(stageList != null) {
+        if (stageList != null) {
             for (String str : stageList) {
                 System.out.println(str);
             }
         }
         System.out.println();
         System.out.println("=== " + "Removed Files" + " ===");
-        if(removeList != null) {
-            for(String str : removeList) {
+        if (removeList != null) {
+            for (String str : removeList) {
                 System.out.println(str);
             }
         }
@@ -267,11 +264,11 @@ public class Repository implements Serializable {
         System.out.println();
         System.out.println("=== " + "Untracked Files" + " ===");
         HashSet<String> hs = untrackedFile();
-        if(!hs.isEmpty()) {
+        if (!hs.isEmpty()) {
             Comparator<String> cp = Comparator.naturalOrder();
             ArrayList<String> l0 = new ArrayList<>(hs);
             l0.sort(cp);
-                for(String str : l0) {
+                for (String str : l0) {
                     System.out.println(str);
                 }
         }
@@ -295,13 +292,13 @@ public class Repository implements Serializable {
         HashSet<String> hsWork = new HashSet<>();
         HashSet<String> hsRemove = new HashSet<>();
         HashSet<String> hsAdd = new HashSet<>();
-        if(allCurrentFileNameHash != null) { hsCommit.addAll(allCurrentFileNameHash.keySet()); }
-        if(allWorkFileName != null) {hsWork.addAll(allWorkFileName); }
-        if(addFileName != null) { hsAdd.addAll(addFileName); }
-        if(removeFileName != null) { hsRemove.addAll(removeFileName); }
-        if(allWorkFileName != null) {
+        if (allCurrentFileNameHash != null) { hsCommit.addAll(allCurrentFileNameHash.keySet()); }
+        if (allWorkFileName != null) {hsWork.addAll(allWorkFileName); }
+        if (addFileName != null) { hsAdd.addAll(addFileName); }
+        if (removeFileName != null) { hsRemove.addAll(removeFileName); }
+        if (allWorkFileName != null) {
             for (String s : allWorkFileName) {
-                if(!hsAdd.contains(s) && !hsCommit.contains(s)) {
+                if (!hsAdd.contains(s) && !hsCommit.contains(s)) {
                     untracked.add(s);
                 }
             }
@@ -311,11 +308,11 @@ public class Repository implements Serializable {
 
     /** solve the problem later */
     public void checkoutBranch(String NameBranch) {
-        if(branches.get(NameBranch) == null) {
+        if (branches.get(NameBranch) == null) {
             System.out.println("No such branch exists");
             return;
         }
-        if(branches.get(NameBranch).equals(head)) {
+        if (branches.get(NameBranch).equals(head)) {
             System.out.println("No need to check out the current branch");
             return;
         }
@@ -328,10 +325,10 @@ public class Repository implements Serializable {
         TreeMap<String, String> allCurrentFileNameHash = currentCom.getMap();
         TreeMap<String, String> allCheckoutFileNameHash = checkoutCom.getMap();
         TreeMap<String, String> copyAllCheckoutFileNameHash =new TreeMap<>(allCheckoutFileNameHash);
-        if(allWorkFileName != null) {
-            for(String fileName : allWorkFileName) {
-                if(allCurrentFileNameHash.get(fileName) == null) {
-                    if(allCheckoutFileNameHash.get(fileName) != null) {
+        if (allWorkFileName != null) {
+            for (String fileName : allWorkFileName) {
+                if (allCurrentFileNameHash.get(fileName) == null) {
+                    if (allCheckoutFileNameHash.get(fileName) != null) {
                         System.out.println("There is an untracked file in the way; delete it, or add and commit it first.");
                         System.exit(0);
                     }
@@ -339,7 +336,7 @@ public class Repository implements Serializable {
             }
         }
 
-        for(String name : allCheckoutFileNameHash.keySet()) {
+        for (String name : allCheckoutFileNameHash.keySet()) {
             String hash = allCheckoutFileNameHash.get(name);
             File blobFile = join(BLOB_DIR, hash);
             File currentWorkFile = join(CWD, name);
@@ -347,7 +344,7 @@ public class Repository implements Serializable {
             writeContents(currentWorkFile, readContentsAsString(blobFile));
         }
 
-        for(String name : allCurrentFileNameHash.keySet()) {
+        for (String name : allCurrentFileNameHash.keySet()) {
             if(allCheckoutFileNameHash.get(name) == null) {
                 File f = join(CWD, name);
                 restrictedDelete(f);
@@ -355,7 +352,7 @@ public class Repository implements Serializable {
         }
 
         List<String> addList = plainFilenamesIn(ADD_STAGE_DIR);
-        if(addList != null) {
+        if (addList != null) {
             for (String str : addList) {
                 File f = join(ADD_STAGE_DIR, str);
                 f.delete();
@@ -363,7 +360,7 @@ public class Repository implements Serializable {
         }
 
         List<String> removeList = plainFilenamesIn(REMOVE_STAGE_DIR);
-        if(removeList != null) {
+        if (removeList != null) {
             for (String str : removeList) {
                 File f = join(REMOVE_STAGE_DIR, str);
                 f.delete();
@@ -431,9 +428,9 @@ public class Repository implements Serializable {
                 if (s.equals(id)) {
                    idChecked =id;
                 } else {
-                    if(s.length() > id.length()) {
+                    if (s.length() > id.length()) {
                         String newString = s.substring(0, id.length());
-                        if(newString.equals(id)) {
+                        if (newString.equals(id)) {
                             idChecked = s;
                         }
                     }
@@ -441,12 +438,12 @@ public class Repository implements Serializable {
             }
         }
 
-        if(idChecked != null) {
+        if (idChecked != null) {
             File f = join(COMMIT_DIR, idChecked);
             Commit com = readObject(f, Commit.class);
             TreeMap<String, String> nameHash = com.getMap();
             String idHash = nameHash.get(fileName);
-            if(idHash != null) {
+            if (idHash != null) {
                 File blopFile = join(BLOB_DIR, idHash);
                 File workFile = join(CWD, fileName);
                 String rc = readContentsAsString(blopFile);
@@ -461,7 +458,7 @@ public class Repository implements Serializable {
     }
 
     public void setBranch(String name) {
-        if(branches.get(name) != null) {
+        if (branches.get(name) != null) {
             System.out.println("A branch with that name already exists");
             return;
         }
@@ -469,12 +466,12 @@ public class Repository implements Serializable {
     }
 
     public void rmBranch(String name) {
-        if(branches.get(name) == null) {
+        if (branches.get(name) == null) {
             System.out.println("A branch with that name does not exist.");
             return;
         }
 
-        if(branches.get(name).equals(head)) {
+        if (branches.get(name).equals(head)) {
             System.out.println("Cannot remove the current branch.");
             return;
         }
@@ -489,9 +486,9 @@ public class Repository implements Serializable {
                 if (s.equals(id)) {
                     idChecked =id;
                 } else {
-                    if(s.length() > id.length()) {
+                    if (s.length() > id.length()) {
                         String newString = s.substring(0, id.length());
-                        if(newString.equals(id)) {
+                        if (newString.equals(id)) {
                             idChecked = s;
                         }
                     }
@@ -512,10 +509,10 @@ public class Repository implements Serializable {
         TreeMap<String, String> allCurrentFileNameHash = currentCom.getMap();
         TreeMap<String, String> allCheckoutFileNameHash = checkoutCom.getMap();
         TreeMap<String, String> copyAllCheckoutFileNameHash =new TreeMap<>(allCheckoutFileNameHash);
-        if(allWorkFileName != null) {
-            for(String fileName : allWorkFileName) {
-                if(allCurrentFileNameHash.get(fileName) == null) {
-                    if(allCheckoutFileNameHash.get(fileName) != null) {
+        if (allWorkFileName != null) {
+            for (String fileName : allWorkFileName) {
+                if (allCurrentFileNameHash.get(fileName) == null) {
+                    if (allCheckoutFileNameHash.get(fileName) != null) {
                         System.out.println("There is an untracked file in the way; delete it, or add and commit it first.");
                         System.exit(0);
                     }
@@ -523,7 +520,7 @@ public class Repository implements Serializable {
             }
         }
 
-        for(String name : allCheckoutFileNameHash.keySet()) {
+        for (String name : allCheckoutFileNameHash.keySet()) {
             String hash = allCheckoutFileNameHash.get(name);
             File blobFile = join(BLOB_DIR, hash);
             File currentWorkFile = join(CWD, name);
@@ -531,15 +528,15 @@ public class Repository implements Serializable {
             writeContents(currentWorkFile, readContentsAsString(blobFile));
         }
 
-        for(String name : allCurrentFileNameHash.keySet()) {
-            if(allCheckoutFileNameHash.get(name) == null) {
+        for (String name : allCurrentFileNameHash.keySet()) {
+            if (allCheckoutFileNameHash.get(name) == null) {
                 File f = join(CWD, name);
                 restrictedDelete(f);
             }
         }
 
         List<String> addList = plainFilenamesIn(ADD_STAGE_DIR);
-        if(addList != null) {
+        if (addList != null) {
             for (String str : addList) {
                 File f = join(ADD_STAGE_DIR, str);
                 f.delete();
@@ -547,7 +544,7 @@ public class Repository implements Serializable {
         }
 
         List<String> removeList = plainFilenamesIn(REMOVE_STAGE_DIR);
-        if(removeList != null) {
+        if (removeList != null) {
             for (String str : removeList) {
                 File f = join(REMOVE_STAGE_DIR, str);
                 f.delete();
@@ -556,16 +553,16 @@ public class Repository implements Serializable {
         head = idChecked;
     }
 
-    public void merge(String nameBranch) {
-        if(plainFilenamesIn(ADD_STAGE_DIR) != null || plainFilenamesIn(REMOVE_STAGE_DIR) != null) {
+    public void mergeBranch(String nameBranch) {
+        if (plainFilenamesIn(ADD_STAGE_DIR) != null || plainFilenamesIn(REMOVE_STAGE_DIR) != null) {
             System.out.println("You have uncommited changes.");
             return;
         }
-        if(branches.get(nameBranch) == null) {
+        if (branches.get(nameBranch) == null) {
             System.out.println("A branch with that name does not exist.");
             return;
         }
-        if(branches.get(nameBranch) == head) {
+        if (branches.get(nameBranch) == head) {
             System.out.println("Cannot merge a branch with itself");
             return;
         }
@@ -587,18 +584,18 @@ public class Repository implements Serializable {
         int temp = 0;
         HashSet<String> givenHashFileName = new HashSet<>(givenCommitTrackedNameHash.keySet());
         HashSet<String> currentHashFileName = new HashSet<>(currentCommitTrackedNameHash.keySet());
-        for(String str : untrackedFile) {
-            if(givenCommitTrackedNameHash.get(str) != null) {
+        for (String str : untrackedFile) {
+            if (givenCommitTrackedNameHash.get(str) != null) {
                 System.out.println("There is an untracked file in the way; delete it, or add and commit it first.");
                 return;
             }
         }
 
-        while(tempC != null && temp == 0) {
+        while (tempC != null && temp == 0) {
             File cm = join(COMMIT_DIR, tempC);
             Commit cc = readObject(cm, Commit.class);
             while (tempG != null && temp == 0) {
-                if(tempC.equals(tempG)) {
+                if (tempC.equals(tempG)) {
                     splitPointID = tempC;
                     temp = 1;
                 }
@@ -609,11 +606,11 @@ public class Repository implements Serializable {
             tempC = cc.getParentID();
         }
 
-        if(splitPointID.equals(givenID)) {
+        if (splitPointID.equals(givenID)) {
             System.out.println("Given branch is an ancestor of the current branch.");
         }
 
-        if(splitPointID.equals(currentID)) {
+        if (splitPointID.equals(currentID)) {
             checkoutBranch(nameBranch);
             System.out.println("Current branch fast-forwarded.");
         }
@@ -623,22 +620,22 @@ public class Repository implements Serializable {
         TreeMap<String, String> splitCommitTrackedNameHash = splitCommit.getMap();
         HashSet<String> splitHashFileName = new HashSet<>(splitCommitTrackedNameHash.keySet());
 
-        for(String nameSplit : splitHashFileName) {
+        for (String nameSplit : splitHashFileName) {
             String hashSplit = splitCommitTrackedNameHash.get(nameSplit);
             String hashCurrent = currentCommitTrackedNameHash.get(nameSplit);
             String hashGiven = givenCommitTrackedNameHash.get(nameSplit);
-            if(!hashSplit.equals(hashCurrent) && hashSplit.equals(hashGiven) && hashCurrent != null) {
+            if (!hashSplit.equals(hashCurrent) && hashSplit.equals(hashGiven) && hashCurrent != null) {
                     checkoutSpecificFile(givenID,nameSplit);
                     addFileToRepository(nameSplit);
                     continue;
                 }
 
-            if(hashSplit.equals(hashCurrent) && hashGiven == null) {
+            if (hashSplit.equals(hashCurrent) && hashGiven == null) {
                 rmFileToRepository(nameSplit);
                 continue;
             }
 
-            if(!hashSplit.equals(hashGiven) && !hashSplit.equals(hashCurrent)) {
+            if (!hashSplit.equals(hashGiven) && !hashSplit.equals(hashCurrent)) {
                 File cur = join(BLOB_DIR, hashCurrent);
                 File giv = join(BLOB_DIR, hashGiven);
                 File work = join(CWD, nameSplit);
@@ -662,11 +659,11 @@ public class Repository implements Serializable {
 
         }
          */
-        for(String nameSplit : givenHashFileName) {
+        for (String nameSplit : givenHashFileName) {
             String hashSplit = splitCommitTrackedNameHash.get(nameSplit);
             String hashCurrent = currentCommitTrackedNameHash.get(nameSplit);
             String hashGiven = givenCommitTrackedNameHash.get(nameSplit);
-            if(hashCurrent == null && hashSplit == null && hashGiven != null) {
+            if (hashCurrent == null && hashSplit == null && hashGiven != null) {
                 checkoutSpecificFile(givenID, nameSplit);
                 addFileToRepository(nameSplit);
             }
@@ -676,7 +673,7 @@ public class Repository implements Serializable {
         secondParentID0 = branches.get(nameBranch);
         commitToRepository("Merged [" + nameBranch + "] into [" + branchName + "]." );
         merged = false;
-        if(meetConflict) {
+        if (meetConflict) {
             System.out.println("Encountered a merge conflict.");
         }
 

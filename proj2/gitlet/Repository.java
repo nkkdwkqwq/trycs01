@@ -213,6 +213,7 @@ public class Repository implements Serializable {
     }
 
     public void gitStatus() {
+
         ArrayList<String> l = new ArrayList<>();
         for (String s : branches.keySet()) {
             if (s.equals("master")) {
@@ -224,15 +225,21 @@ public class Repository implements Serializable {
             Comparator<String> cp = Comparator.naturalOrder();
             l.sort(cp);
         }
-        List<String> stageList = plainFilenamesIn(ADD_STAGE_DIR);
-        List<String> removeList = plainFilenamesIn(REMOVE_STAGE_DIR);
+
+
         System.out.println("=== " + "Branches" + " ===");
-        System.out.println("master");
+        System.out.println("*master");
         if (!l.isEmpty()) {
             for (String str : l) {
                 System.out.println(str);
             }
         }
+
+
+
+
+        List<String> stageList = plainFilenamesIn(ADD_STAGE_DIR);
+        List<String> removeList = plainFilenamesIn(REMOVE_STAGE_DIR);
         System.out.println();
         System.out.println("=== " + "Staged Files" + " ===");
         if (stageList != null) {
@@ -240,6 +247,7 @@ public class Repository implements Serializable {
                 System.out.println(str);
             }
         }
+
         System.out.println();
         System.out.println("=== " + "Removed Files" + " ===");
         if (removeList != null) {
@@ -247,9 +255,11 @@ public class Repository implements Serializable {
                 System.out.println(str);
             }
         }
+
         System.out.println();
-        System.out.println("=== " + "Modification Not Stage For Commit" + " ===");
+        System.out.println("=== " + "Modifications Not Staged For Commit" + " ===");
         System.out.println();
+
         System.out.println("=== " + "Untracked Files" + " ===");
         HashSet<String> hs = untrackedFile();
         if (!hs.isEmpty()) {
@@ -261,10 +271,13 @@ public class Repository implements Serializable {
             }
         }
         System.out.println();
+
+
     }
 
     public void checkoutFilename(String fileName) {
         checkoutSpecificFile(head, fileName);
+
     }
 
     /** Return untracked file in the current branch*/

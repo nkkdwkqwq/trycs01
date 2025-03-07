@@ -33,8 +33,7 @@ public class Repository implements Serializable {
     /** The hash of branch in git */
     public String branchHash;
     /** The head in git */
-    public String head = "hello";
-
+    public String head;
     /** The stage area in git */
     public static File STAGE_DIR = join(GITLET_DIR,"stage");
     /** The stage for add */
@@ -51,6 +50,10 @@ public class Repository implements Serializable {
     public TreeMap<String, String> stageForAdd = new TreeMap<>();
     /** TreeMap for removed file to stage area*/
     public TreeMap<String, String> stageForRemove = new TreeMap<>();
+    /** merge action helped variety */
+    public boolean merged = false;
+    /** the id of second parent */
+    public String secondParentID0 = null;
     /* TODO: fill in the rest of this class. */
 
 
@@ -131,6 +134,9 @@ public class Repository implements Serializable {
         Commit com = new Commit();
         List<String> l = plainFilenamesIn(ADD_STAGE_DIR);
         com.gitCommit(message, head, ADD_STAGE_DIR);
+        if(merged) {
+            com.setSecondParent(secondParentID0);
+        }
         byte[] b = serialize(com);
         head = sha1(b);
         File f = join(COMMIT_DIR, head);
@@ -153,10 +159,12 @@ public class Repository implements Serializable {
 
             System.out.println("===");
             System.out.println("commit " + commitOfHash);
+            if(com.getSecondParent() != null) {
+                System.out.println("Merge: " + parentID.substring(0,7) + " " + com.getSecondParent().substring(0, 7));
+            }
             System.out.println("Date: " + date);
             System.out.println(commitMessage);
             System.out.println();
-
             current = parentID;
         }
 
@@ -219,7 +227,7 @@ public class Repository implements Serializable {
         }
     }
 
-    public void gitState() {
+    public void gitStatus() {
         ArrayList<String> l = new ArrayList<>();
         for (String s : branches.keySet()) {
             if (s.equals("master")) {
@@ -258,6 +266,15 @@ public class Repository implements Serializable {
         System.out.println("=== " + "Modification Not Stage For Commit" + " ===");
         System.out.println();
         System.out.println("=== " + "Untracked Files" + " ===");
+        HashSet<String> hs = untrackedFile();
+        if(!hs.isEmpty()) {
+            Comparator<String> cp = Comparator.naturalOrder();
+            ArrayList<String> l0 = new ArrayList<>(hs);
+            l0.sort(cp);
+                for(String str : l0) {
+                    System.out.println(str);
+                }
+        }
         System.out.println();
     }
 
@@ -265,8 +282,145 @@ public class Repository implements Serializable {
         checkoutSpecificFile(head, fileName);
     }
 
-    public void checkoutBranch(String NameBranch) {
+    /** Return untracked file in the current branch*/
+    private HashSet<String> untrackedFile() {
+        List<String> allWorkFileName = plainFilenamesIn(CWD);
+        List<String> addFileName = plainFilenamesIn(ADD_STAGE_DIR);
+        List<String> removeFileName = plainFilenamesIn(REMOVE_STAGE_DIR);
+        File currentCommit = join(COMMIT_DIR, head);
+        Commit currentCom = readObject(currentCommit, Commit.class);
+        TreeMap<String, String> allCurrentFileNameHash = currentCom.getMap();
+        HashSet<String> untracked = new HashSet<>();
+        HashSet<String> hsCommit = new HashSet<>();
+        HashSet<String> hsWork = new HashSet<>();
+        HashSet<String> hsRemove = new HashSet<>();
+        HashSet<String> hsAdd = new HashSet<>();
+        if(allCurrentFileNameHash != null) { hsCommit.addAll(allCurrentFileNameHash.keySet()); }
+        if(allWorkFileName != null) {hsWork.addAll(allWorkFileName); }
+        if(addFileName != null) { hsAdd.addAll(addFileName); }
+        if(removeFileName != null) { hsRemove.addAll(removeFileName); }
+        if(allWorkFileName != null) {
+            for (String s : allWorkFileName) {
+                if(!hsAdd.contains(s) && !hsCommit.contains(s)) {
+                    untracked.add(s);
+                }
+            }
+        }
+        return untracked;
+    }
 
+    /** solve the problem later */
+    public void checkoutBranch(String NameBranch) {
+        if(branches.get(NameBranch) == null) {
+            System.out.println("No such branch exists");
+            return;
+        }
+        if(branches.get(NameBranch).equals(head)) {
+            System.out.println("No need to check out the current branch");
+            return;
+        }
+        List<String> allWorkFileName = plainFilenamesIn(CWD);
+        File currentCommit = join(COMMIT_DIR, head);
+        Commit currentCom = readObject(currentCommit, Commit.class);
+        String temptHead = branches.get(NameBranch);
+        File checkoutCommit = join(COMMIT_DIR, temptHead);
+        Commit checkoutCom = readObject(checkoutCommit, Commit.class);
+        TreeMap<String, String> allCurrentFileNameHash = currentCom.getMap();
+        TreeMap<String, String> allCheckoutFileNameHash = checkoutCom.getMap();
+        TreeMap<String, String> copyAllCheckoutFileNameHash =new TreeMap<>(allCheckoutFileNameHash);
+        if(allWorkFileName != null) {
+            for(String fileName : allWorkFileName) {
+                if(allCurrentFileNameHash.get(fileName) == null) {
+                    if(allCheckoutFileNameHash.get(fileName) != null) {
+                        System.out.println("There is an untracked file in the way; delete it, or add and commit it first.");
+                        System.exit(0);
+                    }
+                }
+            }
+        }
+
+        for(String name : allCheckoutFileNameHash.keySet()) {
+            String hash = allCheckoutFileNameHash.get(name);
+            File blobFile = join(BLOB_DIR, hash);
+            File currentWorkFile = join(CWD, name);
+            copyAllCheckoutFileNameHash.remove(name);
+            writeContents(currentWorkFile, readContentsAsString(blobFile));
+        }
+
+        for(String name : allCurrentFileNameHash.keySet()) {
+            if(allCheckoutFileNameHash.get(name) == null) {
+                File f = join(CWD, name);
+                restrictedDelete(f);
+            }
+        }
+
+        List<String> addList = plainFilenamesIn(ADD_STAGE_DIR);
+        if(addList != null) {
+            for (String str : addList) {
+                File f = join(ADD_STAGE_DIR, str);
+                f.delete();
+            }
+        }
+
+        List<String> removeList = plainFilenamesIn(REMOVE_STAGE_DIR);
+        if(removeList != null) {
+            for (String str : removeList) {
+                File f = join(REMOVE_STAGE_DIR, str);
+                f.delete();
+            }
+        }
+
+        head = branches.get(NameBranch);
+        branchName = NameBranch;
+
+        /**
+        if(!checkoutCom.getMap().isEmpty()) {
+            TreeMap<String, String> ckt = checkoutCom.getMap();
+            for(String s : ckt.keySet()) {
+                String hashBlob = ckt.get(s);
+                File blobFile = join(BLOB_DIR, hashBlob);
+                String s1 = readContentsAsString(blobFile);
+                File midFile = join(CWD, s);
+                writeContents(midFile, s1);
+                }
+            Set<String> currentSet = tm.keySet();
+            Set<String> checkoutSet = ckt.keySet();
+            if(!checkoutSet.equals(currentSet)) {
+                for(String s3 : checkoutSet) {
+                    boolean deleteFile = true;
+                    String s5 = null;
+                    for(String s4 : currentSet) {
+                        s5 = s4;
+                        if(s3.equals(s4)) {
+                            deleteFile = false;
+                        }
+                    }
+                    if(deleteFile) {
+                        File deleteTheFile = join(CWD, s5);
+                        restrictedDelete(deleteTheFile);
+                    }
+
+                }
+            }
+
+            List<String> addList = plainFilenamesIn(ADD_STAGE_DIR);
+            if(addList != null) {
+                for (String str : addList) {
+                    File f = join(ADD_STAGE_DIR, str);
+                    f.delete();
+                }
+            }
+
+            List<String> removeList = plainFilenamesIn(REMOVE_STAGE_DIR);
+
+            if(removeList != null) {
+                for (String str : removeList) {
+                    File f = join(REMOVE_STAGE_DIR, str);
+                    f.delete();
+                }
+            }
+        }
+         */
     }
 
     public void checkoutSpecificFile(String id , String fileName) {
@@ -304,5 +458,232 @@ public class Repository implements Serializable {
         } else {
             System.out.println("No commit with that id exists");
         }
+    }
+
+    public void setBranch(String name) {
+        if(branches.get(name) != null) {
+            System.out.println("A branch with that name already exists");
+            return;
+        }
+        branches.put(branchName,branchHash);
+    }
+
+    public void rmBranch(String name) {
+        if(branches.get(name) == null) {
+            System.out.println("A branch with that name does not exist.");
+            return;
+        }
+
+        if(branches.get(name).equals(head)) {
+            System.out.println("Cannot remove the current branch.");
+            return;
+        }
+        branches.remove(name);
+    }
+
+    public void reSet(String id) {
+        List<String> cl = plainFilenamesIn(COMMIT_DIR);
+        String idChecked = null;
+        if (cl != null) {
+            for (String s : cl) {
+                if (s.equals(id)) {
+                    idChecked =id;
+                } else {
+                    if(s.length() > id.length()) {
+                        String newString = s.substring(0, id.length());
+                        if(newString.equals(id)) {
+                            idChecked = s;
+                        }
+                    }
+                }
+            }
+        }
+
+        if(idChecked == null) {
+            System.out.println("No commit with that id exists.");
+            return;
+        }
+
+        List<String> allWorkFileName = plainFilenamesIn(CWD);
+        File currentCommit = join(COMMIT_DIR, head);
+        Commit currentCom = readObject(currentCommit, Commit.class);
+        File checkoutCommit = join(COMMIT_DIR, idChecked);
+        Commit checkoutCom = readObject(checkoutCommit, Commit.class);
+        TreeMap<String, String> allCurrentFileNameHash = currentCom.getMap();
+        TreeMap<String, String> allCheckoutFileNameHash = checkoutCom.getMap();
+        TreeMap<String, String> copyAllCheckoutFileNameHash =new TreeMap<>(allCheckoutFileNameHash);
+        if(allWorkFileName != null) {
+            for(String fileName : allWorkFileName) {
+                if(allCurrentFileNameHash.get(fileName) == null) {
+                    if(allCheckoutFileNameHash.get(fileName) != null) {
+                        System.out.println("There is an untracked file in the way; delete it, or add and commit it first.");
+                        System.exit(0);
+                    }
+                }
+            }
+        }
+
+        for(String name : allCheckoutFileNameHash.keySet()) {
+            String hash = allCheckoutFileNameHash.get(name);
+            File blobFile = join(BLOB_DIR, hash);
+            File currentWorkFile = join(CWD, name);
+            copyAllCheckoutFileNameHash.remove(name);
+            writeContents(currentWorkFile, readContentsAsString(blobFile));
+        }
+
+        for(String name : allCurrentFileNameHash.keySet()) {
+            if(allCheckoutFileNameHash.get(name) == null) {
+                File f = join(CWD, name);
+                restrictedDelete(f);
+            }
+        }
+
+        List<String> addList = plainFilenamesIn(ADD_STAGE_DIR);
+        if(addList != null) {
+            for (String str : addList) {
+                File f = join(ADD_STAGE_DIR, str);
+                f.delete();
+            }
+        }
+
+        List<String> removeList = plainFilenamesIn(REMOVE_STAGE_DIR);
+        if(removeList != null) {
+            for (String str : removeList) {
+                File f = join(REMOVE_STAGE_DIR, str);
+                f.delete();
+            }
+        }
+        head = idChecked;
+    }
+
+    public void merge(String nameBranch) {
+        if(plainFilenamesIn(ADD_STAGE_DIR) != null || plainFilenamesIn(REMOVE_STAGE_DIR) != null) {
+            System.out.println("You have uncommited changes.");
+            return;
+        }
+        if(branches.get(nameBranch) == null) {
+            System.out.println("A branch with that name does not exist.");
+            return;
+        }
+        if(branches.get(nameBranch) == head) {
+            System.out.println("Cannot merge a branch with itself");
+            return;
+        }
+
+        HashSet<String> untrackedFile = untrackedFile();
+
+        File givenCommitFile = join(COMMIT_DIR, branches.get(nameBranch));
+        Commit givenCommit = readObject(givenCommitFile, Commit.class);
+        TreeMap<String, String> givenCommitTrackedNameHash = givenCommit.getMap();
+        File currentCommitFile = join(COMMIT_DIR, head);
+        Commit currentCommit = readObject(currentCommitFile, Commit.class);
+        TreeMap<String, String> currentCommitTrackedNameHash = currentCommit.getMap();
+        String currentID = head;
+        String givenID = branches.get(nameBranch);
+        String tempC = currentID;
+        String tempG = givenID;
+        String splitPointID = "Stuff";
+        Boolean meetConflict = false;
+        int temp = 0;
+        HashSet<String> givenHashFileName = new HashSet<>(givenCommitTrackedNameHash.keySet());
+        HashSet<String> currentHashFileName = new HashSet<>(currentCommitTrackedNameHash.keySet());
+        for(String str : untrackedFile) {
+            if(givenCommitTrackedNameHash.get(str) != null) {
+                System.out.println("There is an untracked file in the way; delete it, or add and commit it first.");
+                return;
+            }
+        }
+
+        while(tempC != null && temp == 0) {
+            File cm = join(COMMIT_DIR, tempC);
+            Commit cc = readObject(cm, Commit.class);
+            while (tempG != null && temp == 0) {
+                if(tempC.equals(tempG)) {
+                    splitPointID = tempC;
+                    temp = 1;
+                }
+                File gm = join(COMMIT_DIR, tempG);
+                Commit gc = readObject(gm, Commit.class);
+                tempG = gc.getParentID();
+            }
+            tempC = cc.getParentID();
+        }
+
+        if(splitPointID.equals(givenID)) {
+            System.out.println("Given branch is an ancestor of the current branch.");
+        }
+
+        if(splitPointID.equals(currentID)) {
+            checkoutBranch(nameBranch);
+            System.out.println("Current branch fast-forwarded.");
+        }
+
+        File splitCommitFile = join(COMMIT_DIR, splitPointID);
+        Commit splitCommit = readObject(splitCommitFile, Commit.class);
+        TreeMap<String, String> splitCommitTrackedNameHash = splitCommit.getMap();
+        HashSet<String> splitHashFileName = new HashSet<>(splitCommitTrackedNameHash.keySet());
+
+        for(String nameSplit : splitHashFileName) {
+            String hashSplit = splitCommitTrackedNameHash.get(nameSplit);
+            String hashCurrent = currentCommitTrackedNameHash.get(nameSplit);
+            String hashGiven = givenCommitTrackedNameHash.get(nameSplit);
+            if(!hashSplit.equals(hashCurrent) && hashSplit.equals(hashGiven) && hashCurrent != null) {
+                    checkoutSpecificFile(givenID,nameSplit);
+                    addFileToRepository(nameSplit);
+                    continue;
+                }
+
+            if(hashSplit.equals(hashCurrent) && hashGiven == null) {
+                rmFileToRepository(nameSplit);
+                continue;
+            }
+
+            if(!hashSplit.equals(hashGiven) && !hashSplit.equals(hashCurrent)) {
+                File cur = join(BLOB_DIR, hashCurrent);
+                File giv = join(BLOB_DIR, hashGiven);
+                File work = join(CWD, nameSplit);
+
+                String writesContents = "<<<<<<< HEAD " + System.lineSeparator() + readContentsAsString(cur)
+                        + "=======" + System.lineSeparator() + readContentsAsString(giv) + ">>>>>>>";
+                writeContents(work, writesContents);
+                addFileToRepository(nameSplit);
+                meetConflict = true;
+            }
+        }
+
+        /**
+        for(String nameSplit : currentHashFileName) {
+            String hashSplit = splitCommitTrackedNameHash.get(nameSplit);
+            String hashCurrent = currentCommitTrackedNameHash.get(nameSplit);
+            String hashGiven = givenCommitTrackedNameHash.get(nameSplit);
+            if(hashSplit == null && hashGiven == null) {
+
+            }
+
+        }
+         */
+        for(String nameSplit : givenHashFileName) {
+            String hashSplit = splitCommitTrackedNameHash.get(nameSplit);
+            String hashCurrent = currentCommitTrackedNameHash.get(nameSplit);
+            String hashGiven = givenCommitTrackedNameHash.get(nameSplit);
+            if(hashCurrent == null && hashSplit == null && hashGiven != null) {
+                checkoutSpecificFile(givenID, nameSplit);
+                addFileToRepository(nameSplit);
+            }
+        }
+
+        merged = true;
+        secondParentID0 = branches.get(nameBranch);
+        commitToRepository("Merged [" + nameBranch + "] into [" + branchName + "]." );
+        merged = false;
+        if(meetConflict) {
+            System.out.println("Encountered a merge conflict.");
+        }
+
+
+
+
+
+
     }
 }

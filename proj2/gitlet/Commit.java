@@ -32,6 +32,7 @@ public class Commit implements Serializable {
     private String message;
     private String parentID;
     private String formattedTime;
+    private String secondParent = null;
 
     /** The first string is name, the second is hashValue */
     private TreeMap<String, String> treeMap = new TreeMap<>();
@@ -86,6 +87,12 @@ public class Commit implements Serializable {
                 restrictedDelete(f);
             }
         }
+    }
+    public void setSecondParent(String id) {
+        secondParent = id;
+    }
+    public String getSecondParent() {
+        return secondParent;
     }
 
     public String getFormattedTime() {

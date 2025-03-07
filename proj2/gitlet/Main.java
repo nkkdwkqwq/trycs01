@@ -119,7 +119,7 @@ public class Main {
                     break;
                 }
                 Repository rep6 = Repository.readRepository();
-                rep6.gitState();
+                rep6.gitStatus();
                 break;
 
             case "checkout":
@@ -140,6 +140,19 @@ public class Main {
                     rep7.checkoutSpecificFile(args[1], args[3]);
                 }
                 break;
+
+            case "branch":
+                if(args.length != 2) {
+                    System.out.println("Incorrect operands");
+                    break;
+                }
+                if(!Repository.GITLET_DIR.exists()) {
+                    System.out.println("Not in an initialized Gitlet directory.");
+                    break;
+                }
+                Repository rep8 = Repository.readRepository();
+                rep8.setBranch(args[1]);
+                rep8.saveRepository();
 
             default:
                 System.out.println("No command with that name exists");

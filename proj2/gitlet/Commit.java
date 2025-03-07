@@ -49,11 +49,11 @@ public class Commit implements Serializable {
     public void gitCommit(String messages, String parent) {
         List<String> addList = plainFilenamesIn(Repository.ADD_STAGE_DIR);
         List<String> removeList = plainFilenamesIn(Repository.REMOVE_STAGE_DIR);
-        if(addList == null && removeList == null) {
+        if (addList == null && removeList == null) {
             System.out.println("No changes added to the commit.");
             return;
         }
-        if(messages.trim().isEmpty()) {
+        if (messages.trim().isEmpty()) {
             System.out.println("Please enter a commit message");
             return;
         }
@@ -70,8 +70,6 @@ public class Commit implements Serializable {
         File f0 = join(Repository.COMMIT_DIR, parent);
         treeMap = readObject(f0, Commit.class).getMap();
 
-        /* handle the file in the add stage */
-        /** some problems have not finish */
         if (addList != null) {
             for (String s : addList) {
                 File f = new File(Repository.ADD_STAGE_DIR, s);
@@ -85,7 +83,7 @@ public class Commit implements Serializable {
             for (String s : removeList) {
                 File f = new File(Repository.REMOVE_STAGE_DIR, s);
                 treeMap.remove(s);
-                restrictedDelete(f);
+                f.delete();
             }
         }
     }

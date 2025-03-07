@@ -107,7 +107,7 @@ public class Main {
                 break;
 
             case "status":
-                if (args.length != 2) {
+                if (args.length != 1) {
                     System.out.println("Incorrect operands");
                     break;
                 }

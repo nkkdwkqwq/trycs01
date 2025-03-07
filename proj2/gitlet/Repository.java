@@ -53,8 +53,8 @@ public class Repository implements Serializable {
 
         /** Create essential dir */
         if (!GITLET_DIR.mkdir()) {
-            System.out.println("A Gitlet version-control system already exists " +
-                    "in the current directory");
+            System.out.println("A Gitlet version-control system already exists "
+                    + "in the current directory");
             return;
         }
 
@@ -118,8 +118,7 @@ public class Repository implements Serializable {
 
     public void commitToRepository(String message) {
         Commit com = new Commit();
-        List<String> l = plainFilenamesIn(ADD_STAGE_DIR);
-        com.gitCommit(message, head, ADD_STAGE_DIR);
+        com.gitCommit(message, head);
         if (merged) {
             com.setSecondParent(secondParentID0);
         }
@@ -146,8 +145,8 @@ public class Repository implements Serializable {
             System.out.println("===");
             System.out.println("commit " + commitOfHash);
             if (com.getSecondParent() != null) {
-                System.out.println("Merge: " + parentID.substring(0, 7) +
-                        " " + com.getSecondParent().substring(0, 7));
+                System.out.println("Merge: " + parentID.substring(0, 7)
+                        + " " + com.getSecondParent().substring(0, 7));
             }
             System.out.println("Date: " + date);
             System.out.println(commitMessage);
@@ -327,8 +326,8 @@ public class Repository implements Serializable {
             for (String fileName : allWorkFileName) {
                 if (allCurrentFileNameHash.get(fileName) == null) {
                     if (allCheckoutFileNameHash.get(fileName) != null) {
-                        System.out.println("There is an untracked file in the way; " +
-                                "delete it, or add and commit it first.");
+                        System.out.println("There is an untracked file in the way; "
+                                + "delete it, or add and commit it first.");
                         System.exit(0);
                     }
                 }
@@ -463,8 +462,8 @@ public class Repository implements Serializable {
             for (String fileName : allWorkFileName) {
                 if (allCurrentFileNameHash.get(fileName) == null) {
                     if (allCheckoutFileNameHash.get(fileName) != null) {
-                        System.out.println("There is an untracked file in the way; " +
-                                "delete it, or add and commit it first.");
+                        System.out.println("There is an untracked file in the way; "
+                                + "delete it, or add and commit it first.");
                         System.exit(0);
                     }
                 }
@@ -541,8 +540,8 @@ public class Repository implements Serializable {
         HashSet<String> currentHashFileName = new HashSet<>(currentCommitTrackedNameHash.keySet());
         for (String str : untrackedFile) {
             if (givenCommitTrackedNameHash.get(str) != null) {
-                System.out.println("There is an untracked file in the way; " +
-                        "delete it, or add and commit it first.");
+                System.out.println("There is an untracked file in the way; "
+                        + "delete it, or add and commit it first.");
                 return;
             }
         }

@@ -227,7 +227,7 @@ public class Repository implements Serializable {
         List<String> stageList = plainFilenamesIn(ADD_STAGE_DIR);
         List<String> removeList = plainFilenamesIn(REMOVE_STAGE_DIR);
         System.out.println("=== " + "Branches" + " ===");
-        System.out.println("*master");
+        System.out.println("master");
         if (!l.isEmpty()) {
             for (String str : l) {
                 System.out.println(str);

@@ -575,14 +575,18 @@ public class Repository implements Serializable {
         File givenCommitFile = join(COMMIT_DIR, branches.get(nameBranch));
         Commit givenCommit = readObject(givenCommitFile, Commit.class);
         TreeMap<String, String> givenCommitTrackedNameHash = givenCommit.getMap();
+
         File currentCommitFile = join(COMMIT_DIR, head);
         Commit currentCommit = readObject(currentCommitFile, Commit.class);
         TreeMap<String, String> currentCommitTrackedNameHash = currentCommit.getMap();
+
         String splitPointID = getSplitPointID(nameBranch);
         File splitCommitFile = join(COMMIT_DIR, splitPointID);
         Commit splitCommit = readObject(splitCommitFile, Commit.class);
         TreeMap<String, String> splitCommitTrackedNameHash = splitCommit.getMap();
+
         HashSet<String> splitHashFileName = new HashSet<>(splitCommitTrackedNameHash.keySet());
+
         for (String nameSplit : splitHashFileName) {
             String hashSplit = splitCommitTrackedNameHash.get(nameSplit);
             String hashCurrent = currentCommitTrackedNameHash.get(nameSplit);
@@ -633,15 +637,21 @@ public class Repository implements Serializable {
         File givenCommitFile = join(COMMIT_DIR, branches.get(nameBranch));
         Commit givenCommit = readObject(givenCommitFile, Commit.class);
         TreeMap<String, String> givenCommitTrackedNameHash = givenCommit.getMap();
+
         File currentCommitFile = join(COMMIT_DIR, head);
         Commit currentCommit = readObject(currentCommitFile, Commit.class);
         TreeMap<String, String> currentCommitTrackedNameHash = currentCommit.getMap();
+
         String currentID = head;
         String givenID = branches.get(nameBranch);
+
         boolean meetConflict = false;
+
         String splitPointID = getSplitPointID(nameBranch);
+
         HashSet<String> givenHashFileName = new HashSet<>(givenCommitTrackedNameHash.keySet());
         HashSet<String> currentHashFileName = new HashSet<>(currentCommitTrackedNameHash.keySet());
+
         for (String str : untrackedFile) {
             if (givenCommitTrackedNameHash.get(str) != null) {
                 System.out.println("There is an untracked file in the way; "
@@ -650,15 +660,15 @@ public class Repository implements Serializable {
             }
         }
 
-
-
         if (splitPointID.equals(givenID)) {
             System.out.println("Given branch is an ancestor of the current branch.");
+            return;
         }
 
         if (splitPointID.equals(currentID)) {
             checkoutBranch(nameBranch);
             System.out.println("Current branch fast-forwarded.");
+            return;
         }
 
         File splitCommitFile = join(COMMIT_DIR, splitPointID);

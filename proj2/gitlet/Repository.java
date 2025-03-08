@@ -550,12 +550,29 @@ public class Repository implements Serializable {
         return true;
     }
 
+    private String getParentIDFirst(String id) {
+        File cm = join(COMMIT_DIR, id);
+        Commit cc = readObject(cm, Commit.class);
+        return cc.getParentID();
+    }
+
+    private String getParentID0Second(String id) {
+        File cm = join(COMMIT_DIR, id);
+        Commit cc = readObject(cm, Commit.class);
+        return cc.getSecondParent();
+    }
+    
     private String getSplitPointID(String nameBranch) {
         String splitPointID = null;
         int temp = 0;
         String currentID = head;
         String givenID = branches.get(nameBranch);
         String tempC = currentID;
+        File gm = join(COMMIT_DIR, tempC);
+        Commit gc = readObject(gm, Commit.class);
+        if(gc.getSecondParent() != null) {
+            tempC = gc.getSecondParent();
+        }
         while (tempC != null && temp == 0) {
             String tempG = givenID;
             while (tempG != null && temp == 0) {
@@ -572,6 +589,7 @@ public class Repository implements Serializable {
             tempC = cc.getParentID();
         }
         return splitPointID;
+
     }
     /** handle file if nameSplit file exist when merge happens */
     private Boolean nameSplit(String nameBranch) {
@@ -598,7 +616,7 @@ public class Repository implements Serializable {
             String hashCurrent = currentCommitTrackedNameHash.get(nameSplit);
             String hashGiven = givenCommitTrackedNameHash.get(nameSplit);
             if (hashSplit.equals(hashCurrent)
-                    && !hashSplit.equals(hashGiven) && hashGiven!= null) {
+                    && !hashSplit.equals(hashGiven) && hashGiven != null) {
                 checkoutSpecificFile(givenID, nameSplit);
                 addFileToRepository(nameSplit);
                 continue;

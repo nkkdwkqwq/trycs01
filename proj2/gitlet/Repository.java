@@ -601,7 +601,7 @@ public class Repository implements Serializable {
             if (!hashSplit.equals(hashGiven) && !hashSplit.equals(hashCurrent)) {
                 String g = "";
                 String c = "";
-                if (hashGiven !=null) {
+                if (hashGiven != null) {
                     File giv = join(BLOB_DIR, hashGiven);
                     g = readContentsAsString(giv);
                 }
@@ -616,7 +616,7 @@ public class Repository implements Serializable {
                 String writesContents = "<<<<<<< HEAD" + System.lineSeparator()
                         + c
                         + "=======" + System.lineSeparator()
-                        + g + ">>>>>>>";
+                        + g + ">>>>>>>" + System.lineSeparator();
                 writeContents(work, writesContents);
                 addFileToRepository(nameSplit);
                 meetConflict = true;

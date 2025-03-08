@@ -568,10 +568,10 @@ public class Repository implements Serializable {
         String currentID = head;
         String givenID = branches.get(nameBranch);
         String tempC = currentID;
-        File gm = join(COMMIT_DIR, tempC);
-        Commit gc = readObject(gm, Commit.class);
-        if(gc.getSecondParent() != null) {
-            tempC = gc.getSecondParent();
+        File gm00 = join(COMMIT_DIR, tempC);
+        Commit gc00 = readObject(gm00, Commit.class);
+        if(gc00.getSecondParent() != null) {
+            tempC = gc00.getSecondParent();
         }
         while (tempC != null && temp == 0) {
             String tempG = givenID;

@@ -325,7 +325,7 @@ public class Repository implements Serializable {
 
     /** solve the problem later */
     public void checkoutBranch(String nameBranch) {
-        if (branches.get(nameBranch) == null) {
+        if (!branches.containsKey(nameBranch)) {
             System.out.println("No such branch exists");
             return;
         }
@@ -432,7 +432,7 @@ public class Repository implements Serializable {
             System.out.println("A branch with that name already exists");
             return;
         }
-        branches.put(branchName, branchHash);
+        branches.put(name, branchHash);
     }
 
     public void rmBranch(String name) {

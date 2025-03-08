@@ -132,10 +132,19 @@ public class Main {
                 if (args.length == 2) {
                     rep7.checkoutBranch(args[1]);
                 } else if (args.length == 3) {
+                    if(!args[1].equals("--")) {
+                        System.out.println("Incorrect operands");
+                        break;
+                    }
                     rep7.checkoutFilename(args[2]);
                 } else {
+                    if(!args[2].equals("--")) {
+                        System.out.println("Incorrect operands");
+                        break;
+                    }
                     rep7.checkoutSpecificFile(args[1], args[3]);
                 }
+                rep7.saveRepository();
                 break;
 
             case "branch":

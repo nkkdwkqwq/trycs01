@@ -49,10 +49,13 @@ public class Commit implements Serializable {
     public boolean gitCommit(String messages, String parent) {
         List<String> addList = plainFilenamesIn(Repository.ADD_STAGE_DIR);
         List<String> removeList = plainFilenamesIn(Repository.REMOVE_STAGE_DIR);
-        if (addList == null && removeList == null) {
+
+        // addList and removeList must exist
+        if (addList.isEmpty() && removeList.isEmpty()) {
             System.out.println("No changes added to the commit.");
             return false;
         }
+
         if (messages.trim().isEmpty()) {
             System.out.println("Please enter a commit message");
             return false;

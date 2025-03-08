@@ -329,10 +329,12 @@ public class Repository implements Serializable {
             System.out.println("No such branch exists");
             return;
         }
-        if (nameBranch.equals(head)) {
+
+        if (nameBranch.equals(branchName)) {
             System.out.println("No need to check out the current branch");
             return;
         }
+
         List<String> allWorkFileName = plainFilenamesIn(CWD);
         File currentCommit = join(COMMIT_DIR, head);
         Commit currentCom = readObject(currentCommit, Commit.class);
@@ -526,15 +528,17 @@ public class Repository implements Serializable {
     }
 
     private boolean isMergedCheck(String nameBranch) {
-        if (plainFilenamesIn(ADD_STAGE_DIR) != null || plainFilenamesIn(REMOVE_STAGE_DIR) != null) {
+        List<String> a = plainFilenamesIn(ADD_STAGE_DIR);
+        List<String> r = plainFilenamesIn(REMOVE_STAGE_DIR);
+        if (!a.isEmpty() || !r.isEmpty()) {
             System.out.println("You have uncommited changes.");
             return false;
         }
-        if (branches.get(nameBranch) == null) {
+        if (!branches.containsKey(nameBranch)) {
             System.out.println("A branch with that name does not exist.");
             return false;
         }
-        if (branches.get(nameBranch).equals(head)) {
+        if (nameBranch.equals(branchName)) {
             System.out.println("Cannot merge a branch with itself");
             return false;
         }
@@ -547,10 +551,8 @@ public class Repository implements Serializable {
         String currentID = head;
         String givenID = branches.get(nameBranch);
         String tempC = currentID;
-        String tempG = givenID;
         while (tempC != null && temp == 0) {
-            File cm = join(COMMIT_DIR, tempC);
-            Commit cc = readObject(cm, Commit.class);
+            String tempG = givenID;
             while (tempG != null && temp == 0) {
                 if (tempC.equals(tempG)) {
                     splitPointID = tempC;
@@ -560,6 +562,8 @@ public class Repository implements Serializable {
                 Commit gc = readObject(gm, Commit.class);
                 tempG = gc.getParentID();
             }
+            File cm = join(COMMIT_DIR, tempC);
+            Commit cc = readObject(cm, Commit.class);
             tempC = cc.getParentID();
         }
         return splitPointID;
@@ -663,7 +667,7 @@ public class Repository implements Serializable {
         }
         merged = true;
         secondParentID0 = branches.get(nameBranch);
-        commitToRepository("Merged [" + nameBranch + "] into [" + branchName + "].");
+        commitToRepository("Merged " + nameBranch + " into " + branchName + ".");
         merged = false;
         meetConflict = nameSplit(nameBranch);
         if (meetConflict) {

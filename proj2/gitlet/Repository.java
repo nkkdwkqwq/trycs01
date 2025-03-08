@@ -597,8 +597,8 @@ public class Repository implements Serializable {
             String hashSplit = splitCommitTrackedNameHash.get(nameSplit);
             String hashCurrent = currentCommitTrackedNameHash.get(nameSplit);
             String hashGiven = givenCommitTrackedNameHash.get(nameSplit);
-            if (!hashSplit.equals(hashCurrent)
-                    && hashSplit.equals(hashGiven) && hashCurrent != null) {
+            if (hashSplit.equals(hashCurrent)
+                    && !hashSplit.equals(hashGiven) && hashGiven!= null) {
                 checkoutSpecificFile(givenID, nameSplit);
                 addFileToRepository(nameSplit);
                 continue;
@@ -608,6 +608,9 @@ public class Repository implements Serializable {
                 continue;
             }
             if (hashGiven == null && hashCurrent == null) {
+                continue;
+            }
+            if (hashCurrent != null && hashCurrent.equals(hashGiven)) {
                 continue;
             }
             if (!hashSplit.equals(hashGiven) && !hashSplit.equals(hashCurrent)) {

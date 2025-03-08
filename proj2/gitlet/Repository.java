@@ -125,7 +125,7 @@ public class Repository implements Serializable {
 
     public void commitToRepository(String message) {
         Commit com = new Commit();
-        if(com.gitCommit(message, head)) {
+        if (com.gitCommit(message, head)) {
             if (merged) {
                 com.setSecondParent(secondParentID0);
             }
@@ -329,7 +329,7 @@ public class Repository implements Serializable {
             System.out.println("No such branch exists");
             return;
         }
-        if (branches.get(nameBranch).equals(head)) {
+        if (nameBranch.equals(head)) {
             System.out.println("No need to check out the current branch");
             return;
         }
@@ -478,7 +478,8 @@ public class Repository implements Serializable {
         Commit checkoutCom = readObject(checkoutCommit, Commit.class);
         TreeMap<String, String> allCurrentFileNameHash = currentCom.getMap();
         TreeMap<String, String> allCheckoutFileNameHash = checkoutCom.getMap();
-        TreeMap<String, String> copyAllCheckoutFileNameHash = new TreeMap<>(allCheckoutFileNameHash);
+        TreeMap<String, String> copyAllCheckoutFileNameHash
+                = new TreeMap<>(allCheckoutFileNameHash);
         if (allWorkFileName != null) {
             for (String fileName : allWorkFileName) {
                 if (allCurrentFileNameHash.get(fileName) == null) {
@@ -539,34 +540,14 @@ public class Repository implements Serializable {
         }
         return true;
     }
-    public void mergeBranch(String nameBranch) {
-        if (!isMergedCheck(nameBranch)) {
-            return;
-        }
-        HashSet<String> untrackedFile = untrackedFile();
-        File givenCommitFile = join(COMMIT_DIR, branches.get(nameBranch));
-        Commit givenCommit = readObject(givenCommitFile, Commit.class);
-        TreeMap<String, String> givenCommitTrackedNameHash = givenCommit.getMap();
-        File currentCommitFile = join(COMMIT_DIR, head);
-        Commit currentCommit = readObject(currentCommitFile, Commit.class);
-        TreeMap<String, String> currentCommitTrackedNameHash = currentCommit.getMap();
+
+    private String getSplitPointID(String nameBranch) {
+        String splitPointID = null;
+        int temp = 0;
         String currentID = head;
         String givenID = branches.get(nameBranch);
         String tempC = currentID;
         String tempG = givenID;
-        String splitPointID = "Stuff";
-        boolean meetConflict = false;
-        int temp = 0;
-        HashSet<String> givenHashFileName = new HashSet<>(givenCommitTrackedNameHash.keySet());
-        HashSet<String> currentHashFileName = new HashSet<>(currentCommitTrackedNameHash.keySet());
-        for (String str : untrackedFile) {
-            if (givenCommitTrackedNameHash.get(str) != null) {
-                System.out.println("There is an untracked file in the way; "
-                        + "delete it, or add and commit it first.");
-                return;
-            }
-        }
-
         while (tempC != null && temp == 0) {
             File cm = join(COMMIT_DIR, tempC);
             Commit cc = readObject(cm, Commit.class);
@@ -580,6 +561,80 @@ public class Repository implements Serializable {
                 tempG = gc.getParentID();
             }
             tempC = cc.getParentID();
+        }
+        return splitPointID;
+    }
+    /** handle file if nameSplit file exist when merge happens */
+    private Boolean nameSplit(String nameBranch) {
+        boolean meetConflict = false;
+        String givenID = branches.get(nameBranch);
+        File givenCommitFile = join(COMMIT_DIR, branches.get(nameBranch));
+        Commit givenCommit = readObject(givenCommitFile, Commit.class);
+        TreeMap<String, String> givenCommitTrackedNameHash = givenCommit.getMap();
+        File currentCommitFile = join(COMMIT_DIR, head);
+        Commit currentCommit = readObject(currentCommitFile, Commit.class);
+        TreeMap<String, String> currentCommitTrackedNameHash = currentCommit.getMap();
+        String splitPointID = getSplitPointID(nameBranch);
+        File splitCommitFile = join(COMMIT_DIR, splitPointID);
+        Commit splitCommit = readObject(splitCommitFile, Commit.class);
+        TreeMap<String, String> splitCommitTrackedNameHash = splitCommit.getMap();
+        HashSet<String> splitHashFileName = new HashSet<>(splitCommitTrackedNameHash.keySet());
+        for (String nameSplit : splitHashFileName) {
+            String hashSplit = splitCommitTrackedNameHash.get(nameSplit);
+            String hashCurrent = currentCommitTrackedNameHash.get(nameSplit);
+            String hashGiven = givenCommitTrackedNameHash.get(nameSplit);
+            if (!hashSplit.equals(hashCurrent)
+                    && hashSplit.equals(hashGiven) && hashCurrent != null) {
+                checkoutSpecificFile(givenID, nameSplit);
+                addFileToRepository(nameSplit);
+                continue;
+            }
+            if (hashSplit.equals(hashCurrent) && hashGiven == null) {
+                rmFileToRepository(nameSplit);
+                continue;
+            }
+
+            if (!hashSplit.equals(hashGiven) && !hashSplit.equals(hashCurrent)) {
+                File cur = join(BLOB_DIR, hashCurrent);
+                File giv = join(BLOB_DIR, hashGiven);
+                File work = join(CWD, nameSplit);
+
+                String writesContents = "<<<<<<< HEAD " + System.lineSeparator()
+                        + readContentsAsString(cur)
+                        + "=======" + System.lineSeparator()
+                        + readContentsAsString(giv) + ">>>>>>>";
+                writeContents(work, writesContents);
+                addFileToRepository(nameSplit);
+                meetConflict = true;
+            }
+        }
+        return meetConflict;
+    }
+
+    public void mergeBranch(String nameBranch) {
+        if (!isMergedCheck(nameBranch)) {
+            return;
+        }
+        HashSet<String> untrackedFile = untrackedFile();
+        File givenCommitFile = join(COMMIT_DIR, branches.get(nameBranch));
+        Commit givenCommit = readObject(givenCommitFile, Commit.class);
+        TreeMap<String, String> givenCommitTrackedNameHash = givenCommit.getMap();
+        File currentCommitFile = join(COMMIT_DIR, head);
+        Commit currentCommit = readObject(currentCommitFile, Commit.class);
+        TreeMap<String, String> currentCommitTrackedNameHash = currentCommit.getMap();
+        String currentID = head;
+        String givenID = branches.get(nameBranch);
+        String splitPointID = getSplitPointID(nameBranch);
+        boolean meetConflict = false;
+
+        HashSet<String> givenHashFileName = new HashSet<>(givenCommitTrackedNameHash.keySet());
+        HashSet<String> currentHashFileName = new HashSet<>(currentCommitTrackedNameHash.keySet());
+        for (String str : untrackedFile) {
+            if (givenCommitTrackedNameHash.get(str) != null) {
+                System.out.println("There is an untracked file in the way; "
+                        + "delete it, or add and commit it first.");
+                return;
+            }
         }
 
         if (splitPointID.equals(givenID)) {
@@ -596,32 +651,6 @@ public class Repository implements Serializable {
         TreeMap<String, String> splitCommitTrackedNameHash = splitCommit.getMap();
         HashSet<String> splitHashFileName = new HashSet<>(splitCommitTrackedNameHash.keySet());
 
-        for (String nameSplit : splitHashFileName) {
-            String hashSplit = splitCommitTrackedNameHash.get(nameSplit);
-            String hashCurrent = currentCommitTrackedNameHash.get(nameSplit);
-            String hashGiven = givenCommitTrackedNameHash.get(nameSplit);
-            if (!hashSplit.equals(hashCurrent) && hashSplit.equals(hashGiven) && hashCurrent != null) {
-                checkoutSpecificFile(givenID, nameSplit);
-                addFileToRepository(nameSplit);
-                continue;
-            }
-            if (hashSplit.equals(hashCurrent) && hashGiven == null) {
-                rmFileToRepository(nameSplit);
-                continue;
-            }
-
-            if (!hashSplit.equals(hashGiven) && !hashSplit.equals(hashCurrent)) {
-                File cur = join(BLOB_DIR, hashCurrent);
-                File giv = join(BLOB_DIR, hashGiven);
-                File work = join(CWD, nameSplit);
-
-                String writesContents = "<<<<<<< HEAD " + System.lineSeparator() + readContentsAsString(cur)
-                        + "=======" + System.lineSeparator() + readContentsAsString(giv) + ">>>>>>>";
-                writeContents(work, writesContents);
-                addFileToRepository(nameSplit);
-                meetConflict = true;
-            }
-        }
 
         for (String nameSplit : givenHashFileName) {
             String hashSplit = splitCommitTrackedNameHash.get(nameSplit);
@@ -636,6 +665,7 @@ public class Repository implements Serializable {
         secondParentID0 = branches.get(nameBranch);
         commitToRepository("Merged [" + nameBranch + "] into [" + branchName + "].");
         merged = false;
+        meetConflict = nameSplit(nameBranch);
         if (meetConflict) {
             System.out.println("Encountered a merge conflict.");
         }

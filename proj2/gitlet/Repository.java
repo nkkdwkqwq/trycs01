@@ -100,6 +100,13 @@ public class Repository implements Serializable {
         File commitClass = join(Repository.COMMIT_DIR, head);
         Commit com = readObject(commitClass, Commit.class);
         TreeMap<String, String> tm = com.getMap();
+        if (sha1(b).equals(tm.get(name))) {
+            File add0 = join(ADD_STAGE_DIR, name);
+            File rem0 = join(REMOVE_STAGE_DIR, name);
+            add0.delete();
+            rem0.delete();
+            return;
+        }
         if (tm != null) {
             if (Objects.equals(tm.get(name), sha1(b))) {
                 File f0 = join(Repository.ADD_STAGE_DIR, name);
@@ -118,16 +125,17 @@ public class Repository implements Serializable {
 
     public void commitToRepository(String message) {
         Commit com = new Commit();
-        com.gitCommit(message, head);
-        if (merged) {
-            com.setSecondParent(secondParentID0);
+        if(com.gitCommit(message, head)) {
+            if (merged) {
+                com.setSecondParent(secondParentID0);
+            }
+            byte[] b = serialize(com);
+            head = sha1(b);
+            File f = join(COMMIT_DIR, head);
+            branchHash = sha1(b);
+            branches.put(branchName, branchHash);
+            writeContents(f, b);
         }
-        byte[] b = serialize(com);
-        head = sha1(b);
-        File f = join(COMMIT_DIR, head);
-        branchHash = sha1(b);
-        branches.put(branchName, branchHash);
-        writeContents(f, b);
     }
 
     /** did not solve the two parents case */

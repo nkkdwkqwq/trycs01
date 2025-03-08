@@ -46,16 +46,16 @@ public class Commit implements Serializable {
         parentID = null;
     }
 
-    public void gitCommit(String messages, String parent) {
+    public boolean gitCommit(String messages, String parent) {
         List<String> addList = plainFilenamesIn(Repository.ADD_STAGE_DIR);
         List<String> removeList = plainFilenamesIn(Repository.REMOVE_STAGE_DIR);
         if (addList == null && removeList == null) {
             System.out.println("No changes added to the commit.");
-            return;
+            return false;
         }
         if (messages.trim().isEmpty()) {
             System.out.println("Please enter a commit message");
-            return;
+            return false;
         }
         message = messages;
         parentID = parent;
@@ -86,6 +86,7 @@ public class Commit implements Serializable {
                 f.delete();
             }
         }
+        return true;
     }
     public void setSecondParent(String id) {
         secondParent = id;

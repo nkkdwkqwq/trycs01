@@ -628,9 +628,8 @@ public class Repository implements Serializable {
         TreeMap<String, String> currentCommitTrackedNameHash = currentCommit.getMap();
         String currentID = head;
         String givenID = branches.get(nameBranch);
-        String splitPointID = getSplitPointID(nameBranch);
         boolean meetConflict = false;
-
+        String splitPointID = getSplitPointID(nameBranch);
         HashSet<String> givenHashFileName = new HashSet<>(givenCommitTrackedNameHash.keySet());
         HashSet<String> currentHashFileName = new HashSet<>(currentCommitTrackedNameHash.keySet());
         for (String str : untrackedFile) {
@@ -640,6 +639,8 @@ public class Repository implements Serializable {
                 return;
             }
         }
+
+
 
         if (splitPointID.equals(givenID)) {
             System.out.println("Given branch is an ancestor of the current branch.");
@@ -655,6 +656,7 @@ public class Repository implements Serializable {
         TreeMap<String, String> splitCommitTrackedNameHash = splitCommit.getMap();
         HashSet<String> splitHashFileName = new HashSet<>(splitCommitTrackedNameHash.keySet());
 
+        meetConflict = nameSplit(nameBranch);
 
         for (String nameSplit : givenHashFileName) {
             String hashSplit = splitCommitTrackedNameHash.get(nameSplit);
@@ -669,7 +671,6 @@ public class Repository implements Serializable {
         secondParentID0 = branches.get(nameBranch);
         commitToRepository("Merged " + nameBranch + " into " + branchName + ".");
         merged = false;
-        meetConflict = nameSplit(nameBranch);
         if (meetConflict) {
             System.out.println("Encountered a merge conflict.");
         }

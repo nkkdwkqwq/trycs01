@@ -7,8 +7,6 @@
     <list default="true" id="3a4564cc-4053-4f6f-8f68-862e333aed34" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/gitlet/Repository.java" beforeDir="false" afterPath="$PROJECT_DIR$/gitlet/Repository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/testing/test33-merge-no-conflicts_0/f.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/testing/test33-merge-no-conflicts_0/h.txt" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

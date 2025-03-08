@@ -603,8 +603,8 @@ public class Repository implements Serializable {
                 File giv = join(BLOB_DIR, hashGiven);
                 File work = join(CWD, nameSplit);
 
-                String writesContents = "<<<<<<< HEAD " + System.lineSeparator()
-                        + readContentsAsString(cur)
+                String writesContents = "<<<<<<< HEAD" + System.lineSeparator()
+                        + readContentsAsString(cur) + System.lineSeparator()
                         + "=======" + System.lineSeparator()
                         + readContentsAsString(giv) + ">>>>>>>";
                 writeContents(work, writesContents);

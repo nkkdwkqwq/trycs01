@@ -599,14 +599,24 @@ public class Repository implements Serializable {
             }
 
             if (!hashSplit.equals(hashGiven) && !hashSplit.equals(hashCurrent)) {
-                File cur = join(BLOB_DIR, hashCurrent);
-                File giv = join(BLOB_DIR, hashGiven);
+                String g = "";
+                String c = "";
+                if (hashGiven !=null) {
+                    File giv = join(BLOB_DIR, hashGiven);
+                    g = readContentsAsString(giv);
+                }
+                if (hashCurrent != null) {
+                    File cur = join(BLOB_DIR, hashCurrent);
+                    c = readContentsAsString(cur);
+                }
+
+
                 File work = join(CWD, nameSplit);
 
                 String writesContents = "<<<<<<< HEAD" + System.lineSeparator()
-                        + readContentsAsString(cur) + System.lineSeparator()
+                        + c
                         + "=======" + System.lineSeparator()
-                        + readContentsAsString(giv) + ">>>>>>>";
+                        + g + ">>>>>>>";
                 writeContents(work, writesContents);
                 addFileToRepository(nameSplit);
                 meetConflict = true;

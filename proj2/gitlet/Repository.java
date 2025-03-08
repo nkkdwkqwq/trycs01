@@ -592,6 +592,7 @@ public class Repository implements Serializable {
 
         HashSet<String> splitHashFileName = new HashSet<>(splitCommitTrackedNameHash.keySet());
 
+        //under this situation split exist
         for (String nameSplit : splitHashFileName) {
             String hashSplit = splitCommitTrackedNameHash.get(nameSplit);
             String hashCurrent = currentCommitTrackedNameHash.get(nameSplit);
@@ -606,7 +607,9 @@ public class Repository implements Serializable {
                 rmFileToRepository(nameSplit);
                 continue;
             }
-
+            if (hashGiven == null && hashCurrent == null) {
+                continue;
+            }
             if (!hashSplit.equals(hashGiven) && !hashSplit.equals(hashCurrent)) {
                 String g = "";
                 String c = "";
@@ -618,7 +621,6 @@ public class Repository implements Serializable {
                     File cur = join(BLOB_DIR, hashCurrent);
                     c = readContentsAsString(cur);
                 }
-
 
                 File work = join(CWD, nameSplit);
 
@@ -683,14 +685,17 @@ public class Repository implements Serializable {
 
         meetConflict = nameSplit(nameBranch);
 
+        //under this situation given exist split not exist/
         for (String nameSplit : givenHashFileName) {
             String hashSplit = splitCommitTrackedNameHash.get(nameSplit);
             String hashCurrent = currentCommitTrackedNameHash.get(nameSplit);
             String hashGiven = givenCommitTrackedNameHash.get(nameSplit);
+
             if (hashCurrent == null && hashSplit == null && hashGiven != null) {
                 checkoutSpecificFile(givenID, nameSplit);
                 addFileToRepository(nameSplit);
             }
+
         }
         merged = true;
         secondParentID0 = branches.get(nameBranch);

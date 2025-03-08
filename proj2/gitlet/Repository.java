@@ -450,7 +450,7 @@ public class Repository implements Serializable {
         branches.remove(name);
     }
 
-    public void reSet(String id) {
+    private String idFull(String id) {
         List<String> cl = plainFilenamesIn(COMMIT_DIR);
         String idChecked = null;
         if (cl != null) {
@@ -467,6 +467,10 @@ public class Repository implements Serializable {
                 }
             }
         }
+        return idChecked;
+    }
+    public void reSet(String id) {
+        String idChecked = idFull(id);
 
         if (idChecked == null) {
             System.out.println("No commit with that id exists.");
@@ -525,6 +529,7 @@ public class Repository implements Serializable {
             }
         }
         head = idChecked;
+        branches.put(branchName, idChecked);
     }
 
     private boolean isMergedCheck(String nameBranch) {
